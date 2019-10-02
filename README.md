@@ -1,5 +1,4 @@
 # KMA.APRZP2019.TextEditor
-# KMA.APRZP2019.TextEditor
 
 ## Description
 
