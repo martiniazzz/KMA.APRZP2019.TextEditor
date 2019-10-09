@@ -14,6 +14,12 @@
             <local:FontSizesList x:Key="FontSizesListSourse"/>
         </DockPanel.Resources>
 
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="ApplicationCommands.New" Executed="New_Executed" />
+            <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
+            <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
+        </DockPanel.CommandBindings>
+
         <Menu DockPanel.Dock="Top">
             <Button Content="Log In"/>
             <MenuItem Header="_File">
@@ -67,9 +73,27 @@
 
             <ToolBar ToolBarTray.IsLocked="True" ToolBar.OverflowMode = "Never" >
 
-                <Button Content="B"/>
-                <Button Content="I"/>
-                <Button Content="U"/>
+                <ToggleButton 
+                    x:Name="TopBarButtonBold" 
+                    Content="B" 
+                    Command="EditingCommands.ToggleBold"
+                    CommandTarget="{Binding ElementName=MainTextBox}"
+                    TextBlock.FontWeight="Bold"/>
+                <!--<Image Source="Images\Bold.png" Stretch="None"/>-->
+
+                <ToggleButton 
+                    x:Name="TopBarButtonItalic" 
+                    Content="I" 
+                    Command="EditingCommands.ToggleItalic"
+                    CommandTarget="{Binding ElementName=MainTextBox}"
+                    TextBlock.FontStyle="Italic"/>
+
+                <ToggleButton 
+                    x:Name="TopBarButtonUnderline" 
+                    Content="I" 
+                    Command="EditingCommands.ToggleUnderline"
+                    CommandTarget="{Binding ElementName=MainTextBox}"
+                    TextBlock.FontStyle="Oblique"/>
 
                 <Separator/>
 
@@ -91,7 +115,7 @@
             <Label>Last Modified: </Label>
         </StatusBar>
 
-        <TextBox AcceptsReturn="True" />
+        <RichTextBox x:Name="MainTextBox" AcceptsReturn="True" />
 
     </DockPanel>
 

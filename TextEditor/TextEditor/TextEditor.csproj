@@ -73,6 +73,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FileOptionHandler.cs" />
     <Compile Include="FontList.cs" />
     <Compile Include="FontSizesList.cs" />
     <Compile Include="MainWindow.xaml.cs">
