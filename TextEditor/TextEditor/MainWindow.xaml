@@ -6,9 +6,16 @@
         xmlns:local="clr-namespace:KMA.APRZP2019.TextEditorProject.TextEditor"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <DockPanel>
+
+    <DockPanel LastChildFill="True">
+
+        <DockPanel.Resources>
+            <local:FontList x:Key="FontListSourse"/>
+            <local:FontSizesList x:Key="FontSizesListSourse"/>
+        </DockPanel.Resources>
 
         <Menu DockPanel.Dock="Top">
+            <Button Content="Log In"/>
             <MenuItem Header="_File">
                 <MenuItem Header="_New" />
                 <MenuItem Header="_Open" />
@@ -66,22 +73,26 @@
 
                 <Separator/>
 
-                <ComboBox>
-                    <ComboBoxItem>Arial</ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">Times New Roman</ComboBoxItem>
-                    <ComboBoxItem>Comic Sans</ComboBoxItem>
+                <ComboBox x:Name="FontsList" ItemsSource="{Binding Mode=OneWay, 
+                                             Source={StaticResource FontListSourse}}"
+                                             IsSynchronizedWithCurrentItem="true">
                 </ComboBox>
 
-                <ComboBox>
-                    <ComboBoxItem>10</ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">12</ComboBoxItem>
-                    <ComboBoxItem>14</ComboBoxItem>
+                <ComboBox x:Name="FontSizesList"  ItemsSource="{Binding Mode=OneWay, 
+                                                  Source={StaticResource FontSizesListSourse}}"
+                                                  IsSynchronizedWithCurrentItem="true">
                 </ComboBox>
 
             </ToolBar>
 
         </ToolBarPanel>
 
+        <StatusBar Name="statusbar" DockPanel.Dock="Bottom" Height="40">
+            <Label>Last Modified: </Label>
+        </StatusBar>
+
         <TextBox AcceptsReturn="True" />
+
     </DockPanel>
+
 </Window>
