@@ -3,10 +3,85 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TextEditor"
+        xmlns:local="clr-namespace:KMA.APRZP2019.TextEditorProject.TextEditor"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo"/>
+                <MenuItem Header="_Redo"/>
+                <Separator/>
+                <MenuItem Header="_Cut" />
+                <MenuItem Header="_Copy" />
+                <MenuItem Header="_Paste" />
+                <Separator />
+                <MenuItem Header="_Select All" />
+                <Separator />
+                <MenuItem Header="_Clear All" />
+            </MenuItem>
+        </Menu>
+
+        <ToolBarPanel DockPanel.Dock="Top">
+            <ToolBar ToolBarTray.IsLocked="True" ToolBar.OverflowMode = "Never" >
+
+                <Button Command="New" Content="New"/>
+                <Button Command="Open" Content="Open" />
+                <Button Command="Save" Content="Save" />
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+                <Button Command="Undo" Content="Undo"/>
+                <Button Command="Redo" Content="Redo"/>
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+                <Button Command="Cut" Content="Cut" />
+                <Button Command="Copy" Content="Copy" />
+                <Button Command="Paste" Content="Paste" />
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+                <Button Content="Select All" />
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+                <Button Content="Clear All" />
+
+            </ToolBar>
+
+            <ToolBar ToolBarTray.IsLocked="True" ToolBar.OverflowMode = "Never" >
+
+                <Button Content="B"/>
+                <Button Content="I"/>
+                <Button Content="U"/>
+
+                <Separator/>
+
+                <ComboBox>
+                    <ComboBoxItem>Arial</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">Times New Roman</ComboBoxItem>
+                    <ComboBoxItem>Comic Sans</ComboBoxItem>
+                </ComboBox>
+
+                <ComboBox>
+                    <ComboBoxItem>10</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">12</ComboBoxItem>
+                    <ComboBoxItem>14</ComboBoxItem>
+                </ComboBox>
+
+            </ToolBar>
+
+        </ToolBarPanel>
+
+        <TextBox AcceptsReturn="True" />
+    </DockPanel>
 </Window>
