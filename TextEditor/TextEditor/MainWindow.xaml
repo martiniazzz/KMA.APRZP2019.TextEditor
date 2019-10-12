@@ -23,23 +23,23 @@
         <Menu DockPanel.Dock="Top">
             <Button Content="Log In"/>
             <MenuItem Header="_File">
-                <MenuItem Header="_New" />
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" />
+                <MenuItem Header="_New" Command="New"/>
+                <MenuItem Header="_Open" Command="Open"/>
+                <MenuItem Header="_Save" Command="Save"/>
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit"/>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo"/>
-                <MenuItem Header="_Redo"/>
+                <MenuItem Header="_Undo" Command="Undo"/>
+                <MenuItem Header="_Redo" Command="Redo"/>
                 <Separator/>
-                <MenuItem Header="_Cut" />
-                <MenuItem Header="_Copy" />
-                <MenuItem Header="_Paste" />
+                <MenuItem Header="_Cut" Command="Cut"/>
+                <MenuItem Header="_Copy" Command="Copy"/>
+                <MenuItem Header="_Paste" Command="Paste"/>
                 <Separator />
-                <MenuItem Header="_Select All" />
+                <MenuItem Header="_Select All" Command="{x:Static local:CustomCommands.SelectAll}"/>
                 <Separator />
-                <MenuItem Header="_Clear All" />
+                <MenuItem Header="_Clear All" Command="{x:Static local:CustomCommands.ClearAll}"/>
             </MenuItem>
         </Menu>
 
@@ -63,11 +63,11 @@
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
-                <Button Content="Select All" />
+                <Button x:Name="mSelectAll" Content="Select All" Command="{x:Static local:CustomCommands.SelectAll}"/>
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
-                <Button Content="Clear All" />
+                <Button x:Name="mClearAll" Content="Clear All" Command="{x:Static local:CustomCommands.ClearAll}"/>
 
             </ToolBar>
 
@@ -75,6 +75,9 @@
 
                 <ToggleButton 
                     x:Name="TopBarButtonBold" 
+                    Width="20"
+                    Height="20"
+                    Margin="3"
                     Content="B" 
                     Command="EditingCommands.ToggleBold"
                     CommandTarget="{Binding ElementName=MainTextBox}"
@@ -83,6 +86,9 @@
 
                 <ToggleButton 
                     x:Name="TopBarButtonItalic" 
+                    Width="20"
+                    Height="20"
+                    Margin="3"
                     Content="I" 
                     Command="EditingCommands.ToggleItalic"
                     CommandTarget="{Binding ElementName=MainTextBox}"
@@ -90,19 +96,24 @@
 
                 <ToggleButton 
                     x:Name="TopBarButtonUnderline" 
-                    Content="I" 
+                    Width="20"
+                    Height="20"
+                    Margin="3"
                     Command="EditingCommands.ToggleUnderline"
-                    CommandTarget="{Binding ElementName=MainTextBox}"
-                    TextBlock.FontStyle="Oblique"/>
+                    CommandTarget="{Binding ElementName=MainTextBox}">
+                    <TextBlock TextDecorations="Underline">
+                        U
+                    </TextBlock>
+                </ToggleButton>
 
                 <Separator/>
 
-                <ComboBox x:Name="FontsList" ItemsSource="{Binding Mode=OneWay, 
+                <ComboBox x:Name="mFontsList" Width="100" Margin="3" ItemsSource="{Binding Mode=OneWay, 
                                              Source={StaticResource FontListSourse}}"
                                              IsSynchronizedWithCurrentItem="true">
                 </ComboBox>
 
-                <ComboBox x:Name="FontSizesList"  ItemsSource="{Binding Mode=OneWay, 
+                <ComboBox x:Name="mFontSizesList" Width="50" Margin="3" ItemsSource="{Binding Mode=OneWay, 
                                                   Source={StaticResource FontSizesListSourse}}"
                                                   IsSynchronizedWithCurrentItem="true">
                 </ComboBox>
@@ -115,7 +126,16 @@
             <Label>Last Modified: </Label>
         </StatusBar>
 
-        <RichTextBox x:Name="MainTextBox" AcceptsReturn="True" />
+        <RichTextBox x:Name="mMainTextBox" AcceptsReturn="True">
+            <RichTextBox.CommandBindings>
+                <CommandBinding Command="{x:Static local:CustomCommands.SelectAll}" 
+                                Executed="SelectAll_Executed" 
+                                CanExecute="SelectAll_CanExecute"/>
+                <CommandBinding Command="{x:Static local:CustomCommands.ClearAll}" 
+                                Executed="ClearAll_Executed" 
+                                CanExecute="ClearAll_CanExecute"/>
+            </RichTextBox.CommandBindings>
+        </RichTextBox>
 
     </DockPanel>
 

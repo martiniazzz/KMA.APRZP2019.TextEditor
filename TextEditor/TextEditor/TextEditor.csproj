@@ -73,6 +73,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CustomCommands.cs">
+      <CustomToolNamespace>KMA.APRZP2019.TextEditorProject.TextEditor</CustomToolNamespace>
+    </Compile>
     <Compile Include="FileOptionHandler.cs" />
     <Compile Include="FontList.cs" />
     <Compile Include="FontSizesList.cs" />

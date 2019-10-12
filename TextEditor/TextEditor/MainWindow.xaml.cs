@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
@@ -17,6 +18,7 @@ namespace TextEditor
         public MainWindow()
         {
             InitializeComponent();
+            InitializeFontOptions();
         }
 
         public bool IsSaved
@@ -31,6 +33,35 @@ namespace TextEditor
             }
         }
 
+        private void InitializeFontOptions()
+        {
+            mFontsList.SelectionChanged += (s, e) =>
+              mMainTextBox.Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, e.AddedItems[0]);
+
+            mFontSizesList.SelectionChanged += (s, e) =>
+              mMainTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, e.AddedItems[0]);
+        }
+
+        private void SelectAll_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void SelectAll_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            mMainTextBox.SelectAll();
+        }
+
+        private void ClearAll_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ClearAll_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            mMainTextBox.Document.Blocks.Clear();
+        }
+
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (!_isSaved)
@@ -38,7 +69,7 @@ namespace TextEditor
                 //SaveChangesDialog();
                 Save_Executed(sender, e);
             }
-            MainTextBox.Document.Blocks.Clear();
+            mMainTextBox.Document.Blocks.Clear();
         }
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -48,7 +79,7 @@ namespace TextEditor
             if (dlg.ShowDialog() == true)
             {
                 FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open);
-                TextRange range = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
+                TextRange range = new TextRange(mMainTextBox.Document.ContentStart, mMainTextBox.Document.ContentEnd);
                 range.Load(fileStream, DataFormats.Rtf);
                 fileStream.Close();
             }
@@ -62,7 +93,7 @@ namespace TextEditor
             {
                 using (FileStream fileStream = new FileStream(dlg.FileName, FileMode.Create))
                 {
-                    TextRange range = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
+                    TextRange range = new TextRange(mMainTextBox.Document.ContentStart, mMainTextBox.Document.ContentEnd);
                     range.Save(fileStream, DataFormats.Rtf);
                 }
             }
