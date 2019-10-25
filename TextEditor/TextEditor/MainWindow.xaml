@@ -126,7 +126,14 @@
             <Label>Last Modified: </Label>
         </StatusBar>
 
-        <RichTextBox x:Name="mMainTextBox" AcceptsReturn="True">
+        <RichTextBox x:Name="MainTextBox" 
+                     AcceptsReturn="True"
+                     TextOptions.TextFormattingMode="Ideal" 
+                     TextOptions.TextRenderingMode="Aliased" 
+                     AcceptsTab="True" 
+                     TextChanged="OnTextChanged" 
+                     VerticalScrollBarVisibility="Auto" 
+                     SelectionChanged="OnTextBoxSelectionChanged">
             <RichTextBox.CommandBindings>
                 <CommandBinding Command="{x:Static local:CustomCommands.SelectAll}" 
                                 Executed="SelectAll_Executed" 

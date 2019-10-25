@@ -35,11 +35,11 @@ namespace TextEditor
 
         private void InitializeFontOptions()
         {
-            mFontsList.SelectionChanged += (s, e) =>
-              mMainTextBox.Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, e.AddedItems[0]);
-
+            mFontsList.SelectionChanged += (s, e) => 
+                MainTextBox.Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, e.AddedItems[0]);
+            
             mFontSizesList.SelectionChanged += (s, e) =>
-              mMainTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, e.AddedItems[0]);
+                MainTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, e.AddedItems[0]);
         }
 
         private void SelectAll_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -49,7 +49,7 @@ namespace TextEditor
 
         private void SelectAll_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            mMainTextBox.SelectAll();
+            MainTextBox.SelectAll();
         }
 
         private void ClearAll_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -59,17 +59,16 @@ namespace TextEditor
 
         private void ClearAll_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            mMainTextBox.Document.Blocks.Clear();
+            MainTextBox.Document.Blocks.Clear();
         }
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (!_isSaved)
             {
-                //SaveChangesDialog();
                 Save_Executed(sender, e);
             }
-            mMainTextBox.Document.Blocks.Clear();
+            MainTextBox.Document.Blocks.Clear();
         }
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -79,7 +78,7 @@ namespace TextEditor
             if (dlg.ShowDialog() == true)
             {
                 FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open);
-                TextRange range = new TextRange(mMainTextBox.Document.ContentStart, mMainTextBox.Document.ContentEnd);
+                TextRange range = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
                 range.Load(fileStream, DataFormats.Rtf);
                 fileStream.Close();
             }
@@ -93,9 +92,33 @@ namespace TextEditor
             {
                 using (FileStream fileStream = new FileStream(dlg.FileName, FileMode.Create))
                 {
-                    TextRange range = new TextRange(mMainTextBox.Document.ContentStart, mMainTextBox.Document.ContentEnd);
+                    TextRange range = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
                     range.Save(fileStream, DataFormats.Rtf);
+                    _isSaved = true;
                 }
+            }
+        }
+
+        private void OnTextChanged(object sender, RoutedEventArgs e)
+        {
+            _isSaved = false;
+        }
+
+        private void OnTextBoxSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var textRange = new TextRange(MainTextBox.Selection.Start, MainTextBox.Selection.End);
+
+            var fontFamily = textRange.GetPropertyValue(TextElement.FontFamilyProperty);
+            mFontsList.SelectedItem = fontFamily;
+
+            var fontSize = textRange.GetPropertyValue(TextElement.FontSizeProperty);
+            mFontSizesList.Text = fontSize.ToString();
+
+            if (!String.IsNullOrEmpty(textRange.Text))
+            {
+                TopBarButtonBold.IsChecked = textRange.GetPropertyValue(TextElement.FontWeightProperty).Equals(FontWeights.Bold);
+                TopBarButtonItalic.IsChecked = textRange.GetPropertyValue(TextElement.FontStyleProperty).Equals(FontStyles.Italic);
+                TopBarButtonUnderline.IsChecked = textRange.GetPropertyValue(Inline.TextDecorationsProperty).Equals(TextDecorations.Underline);
             }
         }
 
