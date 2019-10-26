@@ -13,7 +13,7 @@ namespace TextEditor
     public partial class MainWindow : Window
     {
 
-        private bool _isSaved = false;
+        private bool _isSaved = true;
 
         public MainWindow()
         {
@@ -66,22 +66,40 @@ namespace TextEditor
         {
             if (!_isSaved)
             {
-                Save_Executed(sender, e);
+                MessageBoxResult result = MessageBox.Show("Would you like to save the file?","Message", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                if(result == MessageBoxResult.Yes)
+                {
+                    Save_Executed(sender, e);
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    MainTextBox.Document.Blocks.Clear();
+                }
             }
-            MainTextBox.Document.Blocks.Clear();
         }
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*";
-            if (dlg.ShowDialog() == true)
+            if (!_isSaved)
             {
-                FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open);
-                TextRange range = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
-                range.Load(fileStream, DataFormats.Rtf);
-                fileStream.Close();
-            }
+                MessageBoxResult result = MessageBox.Show("Would you like to save the file?", "Message", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Save_Executed(sender, e);
+                }
+                else if (result == MessageBoxResult.Cancel)
+                    return;
+
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*";
+                if (dlg.ShowDialog() == true)
+                {
+                    FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open);
+                    TextRange range = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
+                    range.Load(fileStream, DataFormats.Rtf);
+                    fileStream.Close();
+                }
+            } 
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
