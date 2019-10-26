@@ -89,17 +89,17 @@ namespace TextEditor
                 }
                 else if (result == MessageBoxResult.Cancel)
                     return;
+            }
 
-                OpenFileDialog dlg = new OpenFileDialog();
-                dlg.Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*";
-                if (dlg.ShowDialog() == true)
-                {
-                    FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open);
-                    TextRange range = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
-                    range.Load(fileStream, DataFormats.Rtf);
-                    fileStream.Close();
-                }
-            } 
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*";
+            if (dlg.ShowDialog() == true)
+            {
+                FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open);
+                TextRange range = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
+                range.Load(fileStream, DataFormats.Rtf);
+                fileStream.Close();
+            }
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)

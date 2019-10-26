@@ -20,22 +20,61 @@
             <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
         </DockPanel.CommandBindings>
 
+        <ToolBarPanel DockPanel.Dock="Top">
+            <Label x:Name="UserHello" Content="Hello, User" HorizontalContentAlignment="Right"/>
+        </ToolBarPanel>
+        
         <Menu DockPanel.Dock="Top">
-            <Button Content="Log In"/>
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Command="New"/>
-                <MenuItem Header="_Open" Command="Open"/>
-                <MenuItem Header="_Save" Command="Save"/>
+                <MenuItem Header="_New" Command="New">
+                    <MenuItem.Icon>
+                        <Image Source="Images/new.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Open" Command="Open">
+                    <MenuItem.Icon>
+                        <Image Source="Images/open.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Save" Command="Save">
+                    <MenuItem.Icon>
+                        <Image Source="Images/save.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="_Exit"/>
+                <MenuItem Header="_Exit">
+                    <MenuItem.Icon>
+                        <Image Source="Images/exit.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo" Command="Undo"/>
-                <MenuItem Header="_Redo" Command="Redo"/>
+                <MenuItem Header="_Undo" Command="Undo">
+                    <MenuItem.Icon>
+                        <Image Source="Images/undo.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Redo" Command="Redo">
+                    <MenuItem.Icon>
+                        <Image Source="Images/redo.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator/>
-                <MenuItem Header="_Cut" Command="Cut"/>
-                <MenuItem Header="_Copy" Command="Copy"/>
-                <MenuItem Header="_Paste" Command="Paste"/>
+                <MenuItem Header="_Cut" Command="Cut">
+                    <MenuItem.Icon>
+                        <Image Source="Images/cut.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Copy" Command="Copy">
+                    <MenuItem.Icon>
+                        <Image Source="Images/copy.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Paste" Command="Paste">
+                    <MenuItem.Icon>
+                        <Image Source="Images/paste.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
                 <MenuItem Header="_Select All" Command="{x:Static local:CustomCommands.SelectAll}"/>
                 <Separator />
@@ -46,20 +85,36 @@
         <ToolBarPanel DockPanel.Dock="Top">
             <ToolBar ToolBarTray.IsLocked="True" ToolBar.OverflowMode = "Never" >
 
-                <Button Command="New" Content="New"/>
-                <Button Command="Open" Content="Open" />
-                <Button Command="Save" Content="Save" />
+                <Button Command="New">
+                    <Image Source="Images/new.png" Width="16px" Height="16px"/>
+                </Button>
+                <Button Command="Open">
+                    <Image Source="Images/open.png" Width="16px" Height="16px"/>
+                </Button>
+                <Button Command="Save">
+                    <Image Source="Images/save.png" Width="16px" Height="16px"/>
+                </Button>
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
-                <Button Command="Undo" Content="Undo"/>
-                <Button Command="Redo" Content="Redo"/>
+                <Button Command="Undo">
+                    <Image Source="Images/undo.png" Width="16px" Height="16px"/>
+                </Button>
+                <Button Command="Redo">
+                    <Image Source="Images/redo.png" Width="16px" Height="16px"/>
+                </Button>
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
-                <Button Command="Cut" Content="Cut" />
-                <Button Command="Copy" Content="Copy" />
-                <Button Command="Paste" Content="Paste" />
+                <Button Command="Cut">
+                    <Image Source="Images/cut.png" Width="16px" Height="16px"/>
+                </Button>
+                <Button Command="Copy">
+                    <Image Source="Images/copy.png" Width="16px" Height="16px"/>
+                </Button>
+                <Button Command="Paste">
+                    <Image Source="Images/paste.png" Width="16px" Height="16px"/>
+                </Button>
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
@@ -78,21 +133,22 @@
                     Width="20"
                     Height="20"
                     Margin="3"
-                    Content="B" 
                     Command="EditingCommands.ToggleBold"
                     CommandTarget="{Binding ElementName=MainTextBox}"
-                    TextBlock.FontWeight="Bold"/>
-                <!--<Image Source="Images\Bold.png" Stretch="None"/>-->
+                    TextBlock.FontWeight="Bold">
+                    <Image Source="Images/bold.png" Width="14px" Height="14px"/>
+                </ToggleButton>
 
                 <ToggleButton 
                     x:Name="TopBarButtonItalic" 
                     Width="20"
                     Height="20"
-                    Margin="3"
-                    Content="I" 
+                    Margin="3" 
                     Command="EditingCommands.ToggleItalic"
                     CommandTarget="{Binding ElementName=MainTextBox}"
-                    TextBlock.FontStyle="Italic"/>
+                    TextBlock.FontStyle="Italic">
+                    <Image Source="Images/italic.png" Width="14px" Height="14px"/>
+                </ToggleButton>
 
                 <ToggleButton 
                     x:Name="TopBarButtonUnderline" 
@@ -101,9 +157,7 @@
                     Margin="3"
                     Command="EditingCommands.ToggleUnderline"
                     CommandTarget="{Binding ElementName=MainTextBox}">
-                    <TextBlock TextDecorations="Underline">
-                        U
-                    </TextBlock>
+                    <Image Source="Images/underline.png" Width="14px" Height="14px"/>
                 </ToggleButton>
 
                 <Separator/>
@@ -123,7 +177,7 @@
         </ToolBarPanel>
 
         <StatusBar Name="statusbar" DockPanel.Dock="Bottom" Height="40">
-            <Label>Last Modified: </Label>
+            <Label>Last Modified:</Label>
         </StatusBar>
 
         <RichTextBox x:Name="MainTextBox" 
