@@ -80,7 +80,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ValueObjects\PagesEnum.cs" />
+    <Compile Include="Services\NavigationManager.cs" />
+    <Compile Include="Tools\Controls\PassswordControl.xaml.cs">
+      <DependentUpon>PassswordControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\interfaces\IContentWindow.cs" />
+    <Compile Include="Tools\NavigationModel.cs" />
+    <Compile Include="Tools\PasswordBoxAssistant.cs" />
+    <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\TextEditorViewModel.cs" />
+    <Compile Include="Views\Authentication\LoginFormView.xaml.cs">
+      <DependentUpon>LoginFormView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\Controls\PassswordControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Authentication\RegisterFormView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TextEditor\MainTextEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -88,16 +119,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CustomCommands.cs">
+    <Compile Include="Views\Authentication\RegisterFormView.xaml.cs">
+      <DependentUpon>RegisterFormView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TextEditor\CustomCommands.cs">
       <CustomToolNamespace>KMA.APRZP2019.TextEditorProject.TextEditor</CustomToolNamespace>
     </Compile>
-    <Compile Include="FileOptionHandler.cs" />
-    <Compile Include="FontList.cs" />
-    <Compile Include="FontSizesList.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\TextEditor\FileOptionHandler.cs" />
+    <Compile Include="Views\TextEditor\FontList.cs" />
+    <Compile Include="Views\TextEditor\FontSizesList.cs" />
+    <Compile Include="Views\TextEditor\MainTextEditWindow.xaml.cs">
+      <DependentUpon>MainTextEditWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Authentication\LoginFormView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -162,6 +200,7 @@
     <Resource Include="Images\italic.png" />
     <Resource Include="Images\underline.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
