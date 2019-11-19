@@ -13,7 +13,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TextEditorWebApp</RootNamespace>
+    <RootNamespace>KMA.APRZP2019.TextEditorProject.TextEditorWebApp</RootNamespace>
     <AssemblyName>TextEditorWebApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
@@ -163,7 +163,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -252,6 +252,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBModels\DBModels.csproj">
+      <Project>{106F7AE3-4402-4D26-8BFE-ED5F78E3353C}</Project>
+      <Name>DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextEditorServerImp\TextEditorServerImpl.csproj">
+      <Project>{8634C19C-0A10-4F89-8679-9DADC0C1B826}</Project>
+      <Name>TextEditorServerImpl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextEditorServerInterface\TextEditorServerInterface.csproj">
+      <Project>{B4C5C86C-6F5B-4014-AAF4-11D367E14F45}</Project>
+      <Name>TextEditorServerInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

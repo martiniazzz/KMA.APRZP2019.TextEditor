@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace KMA.APRZP2019.TextEditorProject.EnityFrameworkWrapper
 {
-    class TextEditorDbContext : DbContext
+    public class TextEditorDbContext : DbContext
     {
         public TextEditorDbContext() : base("name=DB")
         {
