@@ -1,4 +1,8 @@
-﻿using KMA.APRZP2019.TextEditorProject.TextEditor.Models.ValueObjects;
+﻿using KMA.APRZP2019.TextEditorProject.DBModels;
+using KMA.APRZP2019.TextEditorProject.RestClient;
+using KMA.APRZP2019.TextEditorProject.RestClient.Autologin;
+using KMA.APRZP2019.TextEditorProject.TextEditor.Models.ValueObjects;
+using KMA.APRZP2019.TextEditorProject.TextEditor.Properties;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Services;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Tools;
 using System;
@@ -8,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
@@ -43,7 +48,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         {
             get
             {
-                return _loginCommand ?? (_loginCommand = new RelayCommand<object>(LoginExecute, LoginCanExecute));
+                return _loginCommand ?? (_loginCommand = new RelayCommand<object>(LoginExecuteAsync, LoginCanExecute));
             }
         }
 
@@ -55,10 +60,51 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
-        //todo: login logic
-        private void LoginExecute(object obj)
+        
+        private async void LoginExecuteAsync(object obj)
         {
-            NavigationManager.Instance.Navigate(ModesEnum.TextEditor);
+            LoaderService.Instance.ShowLoader();
+            var result = await Task.Run(() =>
+            {
+                User currentUser;
+                try
+                {
+                    using (var restClient = new RestClientApiService())
+                    {
+                        currentUser = restClient.GetUserByLoginOrEmail(Login);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
+                        ex.Message));
+                    return false;
+                }
+                if (currentUser == null)
+                {
+                    MessageBox.Show(Resources.SignIn_FailedToLogin);
+                    return false;
+                }
+                try
+                {
+                    if (!currentUser.CheckPassword(_password))
+                    {
+                        MessageBox.Show(Resources.SignIn_FailedToLogin);
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format(Resources.SignIn_FailedToValidatePassword, Environment.NewLine,
+                        ex.Message));
+                    return false;
+                }
+                AutoLoginService.CurrentUser = currentUser;
+                return true;
+            });
+            LoaderService.Instance.HideLoader();
+            if (result)
+                NavigationManager.Instance.Navigate(ModesEnum.TextEditor);
         }
 
         private bool LoginCanExecute(object obj)

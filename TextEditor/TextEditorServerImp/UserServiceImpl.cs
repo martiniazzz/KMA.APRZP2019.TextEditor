@@ -20,11 +20,35 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditorServerImp
             }
         }
 
+        public User GetUserByGuid(Guid guid)
+        {
+            using (TextEditorDbContext context = new TextEditorDbContext())
+            {
+               return context.Users.FirstOrDefault(u => u.Guid == guid);
+            }
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
             using (var context = new TextEditorDbContext())
             {
                 return context.Users.ToList();
+            }
+        }
+
+        public bool UserExists(string loginOrEmail)
+        {
+            using (var context = new TextEditorDbContext())
+            {
+                return context.Users.Any(u => u.Login== loginOrEmail || u.Email == loginOrEmail);
+            }
+        }
+
+        public User GetUserByLoginOrEmail(string loginOrEmail)
+        {
+            using (var context = new TextEditorDbContext())
+            {
+                return context.Users.FirstOrDefault(u => u.Login == loginOrEmail || u.Email == loginOrEmail);
             }
         }
     }

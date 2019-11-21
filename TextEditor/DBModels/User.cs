@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 
 namespace KMA.APRZP2019.TextEditorProject.DBModels
 {
+    [Serializable()]
     [DataContract(IsReference = true)]
     public class User : IDBModel
     {
         [DataMember]
         private Guid _guid;
+        [DataMember]
+        private string _login;
         [DataMember]
         private string _firstName;
         [DataMember]
@@ -21,6 +24,7 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
         private string _email;
         [DataMember]
         private string _password;
+        [NonSerialized()]
         [DataMember]
         private List<UserRequest> _requests;
 
@@ -35,6 +39,19 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
                 _guid = value;
             }
         }
+
+        public string Login
+        {
+            get
+            {
+                return _login;
+            }
+            private set
+            {
+                _login = value;
+            }
+        }
+
         public string FirstName
         {
             get
@@ -94,9 +111,10 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
         {
             Requests = new List<UserRequest>();
         }
-        public User(string firstName, string lastName, string email, string password) : this()
+        public User(string login, string firstName, string lastName, string email, string password) : this()
         {
             _guid = Guid.NewGuid();
+            _login = login;
             _firstName = firstName;
             _lastName = lastName;
             _email = email;

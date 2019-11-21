@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KMA.APRZP2019.TextEditorProject.TextEditor"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="MainWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ExitCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <ContentControl Name="_contentControl" IsEnabled="{Binding Path=IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <fa:ImageAwesome Name="ImageAwesome"  Icon="Spinner" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Spin="True" Visibility="{Binding Path=LoaderVisibility, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

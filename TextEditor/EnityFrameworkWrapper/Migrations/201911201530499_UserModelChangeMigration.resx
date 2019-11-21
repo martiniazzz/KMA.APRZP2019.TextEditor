@@ -117,28 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SignIn_FailedToGetUser" xml:space="preserve">
-    <value>Failed to get user.{0}Reason: {1}</value>
+  <data name="Target" xml:space="preserve">
+    <value>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</value>
   </data>
-  <data name="SignIn_FailedToLogin" xml:space="preserve">
-    <value>Incorrect login or password!</value>
-  </data>
-  <data name="SignIn_FailedToValidatePassword" xml:space="preserve">
-    <value>Failed to validate password.{0}Reason: {1}</value>
-  </data>
-  <data name="SignUp_EmailIsNotValid" xml:space="preserve">
-    <value>Email address {0} is not valid!</value>
-  </data>
-  <data name="SignUp_FailedToCreateUser" xml:space="preserve">
-    <value>Failed to create user.{0}Reason: {1}</value>
-  </data>
-  <data name="SignUp_FailedToValidateData" xml:space="preserve">
-    <value>Failed to validate data.{0}Reason: {1}</value>
-  </data>
-  <data name="SignUp_UserAlreadyExists" xml:space="preserve">
-    <value>User with login {0} already exists!</value>
-  </data>
-  <data name="SignUp_UserSuccessfulyCreated" xml:space="preserve">
-    <value>User {0} successfully created!</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>

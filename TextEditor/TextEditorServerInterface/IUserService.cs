@@ -14,6 +14,15 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditorServerInterface
         void AddUser(User user);
 
         [OperationContract]
+        User GetUserByGuid(Guid guid);
+
+        [OperationContract]
         IEnumerable<User> GetAllUsers();
+
+        [OperationContract]
+        bool UserExists(string loginOrEmail);
+
+        [OperationContract]
+        User GetUserByLoginOrEmail(string loginOrEmail);
     }
 }

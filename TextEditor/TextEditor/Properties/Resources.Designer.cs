@@ -19,7 +19,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,78 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get user.{0}Reason: {1}.
+        /// </summary>
+        internal static string SignIn_FailedToGetUser {
+            get {
+                return ResourceManager.GetString("SignIn_FailedToGetUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect login or password!.
+        /// </summary>
+        internal static string SignIn_FailedToLogin {
+            get {
+                return ResourceManager.GetString("SignIn_FailedToLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to validate password.{0}Reason: {1}.
+        /// </summary>
+        internal static string SignIn_FailedToValidatePassword {
+            get {
+                return ResourceManager.GetString("SignIn_FailedToValidatePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email address {0} is not valid!.
+        /// </summary>
+        internal static string SignUp_EmailIsNotValid {
+            get {
+                return ResourceManager.GetString("SignUp_EmailIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create user.{0}Reason: {1}.
+        /// </summary>
+        internal static string SignUp_FailedToCreateUser {
+            get {
+                return ResourceManager.GetString("SignUp_FailedToCreateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to validate data.{0}Reason: {1}.
+        /// </summary>
+        internal static string SignUp_FailedToValidateData {
+            get {
+                return ResourceManager.GetString("SignUp_FailedToValidateData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with login {0} already exists!.
+        /// </summary>
+        internal static string SignUp_UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("SignUp_UserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} successfully created!.
+        /// </summary>
+        internal static string SignUp_UserSuccessfulyCreated {
+            get {
+                return ResourceManager.GetString("SignUp_UserSuccessfulyCreated", resourceCulture);
             }
         }
     }

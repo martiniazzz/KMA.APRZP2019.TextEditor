@@ -10,49 +10,40 @@ using System.Web.Http;
 
 namespace TextEditorWebApp.Controllers
 {
-    public class UserController : ApiController
+    public class UserController : ApiController, IUserService
     {
         IUserService userService = new UserServiceImpl();
 
         private IUserService UserService { get => userService; set => userService = value; }
 
-        //// GET api/values
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/values/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/values
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-        //// PUT api/values/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //public void Delete(int id)
-        //{
-        //}
-
         [HttpGet]
-        public IEnumerable<User> getUsers()
+        public IEnumerable<User> GetAllUsers()
         {
             return UserService.GetAllUsers();
+        }
+
+        [HttpGet]
+        public User GetUserByGuid(Guid guid)
+        {
+            return UserService.GetUserByGuid(guid);
         }
 
         [HttpPost]
         public void AddUser([FromBody]User user)
         {
             UserService.AddUser(user);
+        }
+
+        [HttpGet]
+        public bool UserExists(string loginOrEmail)
+        {
+            return UserService.UserExists(loginOrEmail);
+        }
+
+        [HttpGet]
+        public User GetUserByLoginOrEmail(string loginOrEmail)
+        {
+            return UserService.GetUserByLoginOrEmail(loginOrEmail);
         }
     }
 }

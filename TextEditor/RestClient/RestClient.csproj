@@ -5,8 +5,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5325059A-A1A0-4BF1-AC06-11B1033C9507}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>RestClient</RootNamespace>
+    <OutputType>Library</OutputType>
+    <RootNamespace>KMA.APRZP2019.TextEditorProject.RestClient</RootNamespace>
     <AssemblyName>RestClient</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -32,11 +32,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autologin\AutoLoginService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RestClientApiService.cs" />
   </ItemGroup>
@@ -49,6 +53,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DBModels\DBModels.csproj">
@@ -58,6 +63,10 @@
     <ProjectReference Include="..\TextEditorServerInterface\TextEditorServerInterface.csproj">
       <Project>{b4c5c86c-6f5b-4014-aaf4-11d367e14f45}</Project>
       <Name>TextEditorServerInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{60eebfc6-d7a9-47e6-baf6-3854d13bdece}</Project>
+      <Name>Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

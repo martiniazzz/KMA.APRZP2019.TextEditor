@@ -7,10 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
-namespace RestClient
+namespace KMA.APRZP2019.TextEditorProject.RestClient
 {
-    class RestClientApiService : IDisposable, IUserService
+    public class RestClientApiService : IDisposable, IUserService
     {
 
         HttpClient _client = new HttpClient();
@@ -48,11 +49,11 @@ namespace RestClient
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+        #endregion
 
         public void AddUser(User user)
         {
             var response = _client.PostAsJsonAsync(_serviceBaseUri.AddSegment(nameof(AddUser)), user).Result;
-            Console.WriteLine(response.ToString());
 
             if (!response.IsSuccessStatusCode)
                 throw new InvalidOperationException("Create failed with " + response.StatusCode.ToString());
@@ -73,8 +74,49 @@ namespace RestClient
 
             return new List<User>();
         }
-        #endregion
 
+        public bool UserExists(string loginOrEmail)
+        {
+            var response = _client.GetAsync(_serviceBaseUri.AddSegment(nameof(UserExists)).AddUriParam(nameof(loginOrEmail), loginOrEmail)).Result;
+            Console.WriteLine(_serviceBaseUri.AddSegment(nameof(UserExists)).AddUriParam(nameof(loginOrEmail), loginOrEmail));
+            Console.WriteLine(response);
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Content.ReadAsAsync<bool>().Result;
+            }
+            else
+            {
+                throw new InvalidOperationException("Get failed with " + response.StatusCode.ToString());
+            }
+        }
+
+        public User GetUserByGuid(Guid guid)
+        {
+            var response = _client.GetAsync(_serviceBaseUri.AddSegment(nameof(GetUserByGuid)).AddUriParam(nameof(guid), guid.ToString())).Result;
+            Console.WriteLine(_serviceBaseUri.AddSegment(nameof(GetUserByGuid)).AddUriParam(nameof(guid), guid.ToString()));
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Content.ReadAsAsync<User>().Result;
+            }
+            else
+            {
+                throw new InvalidOperationException("Get failed with " + response.StatusCode.ToString());
+            }
+        }
+
+        public User GetUserByLoginOrEmail(string loginOrEmail)
+        {
+            var response = _client.GetAsync(_serviceBaseUri.AddSegment(nameof(GetUserByLoginOrEmail)).AddUriParam(nameof(loginOrEmail), loginOrEmail)).Result;
+            Console.WriteLine(_serviceBaseUri.AddSegment(nameof(GetUserByLoginOrEmail)).AddUriParam(nameof(loginOrEmail), loginOrEmail));
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Content.ReadAsAsync<User>().Result;
+            }
+            else
+            {
+                throw new InvalidOperationException("Get failed with " + response.StatusCode.ToString());
+            }
+        }
     }
 
     static class UriExtensions
@@ -84,6 +126,15 @@ namespace RestClient
             UriBuilder ub = new UriBuilder(originalUri);
             ub.Path = ub.Path + ((ub.Path.EndsWith("/")) ? "" : "/") + segment;
 
+            return ub.Uri;
+        }
+
+        public static Uri AddUriParam(this Uri originalUri, string paramName, string paramValue)
+        {
+            UriBuilder ub = new UriBuilder(originalUri);
+            var query = HttpUtility.ParseQueryString(ub.Query);
+            query[paramName] = paramValue;
+            ub.Query = query.ToString();
             return ub.Uri;
         }
     }

@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201911191539175_InitialMigration.designer.cs">
       <DependentUpon>201911191539175_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911201530499_UserModelChangeMigration.cs" />
+    <Compile Include="Migrations\201911201530499_UserModelChangeMigration.designer.cs">
+      <DependentUpon>201911201530499_UserModelChangeMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelConfiguration\UserConfiguration.cs" />
     <Compile Include="ModelConfiguration\UserRequestConfiguration.cs" />
@@ -72,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201911191539175_InitialMigration.resx">
       <DependentUpon>201911191539175_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911201530499_UserModelChangeMigration.resx">
+      <DependentUpon>201911201530499_UserModelChangeMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

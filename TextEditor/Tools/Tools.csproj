@@ -40,6 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encryptor.cs" />
+    <Compile Include="FileFolderHelper.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Serializator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
