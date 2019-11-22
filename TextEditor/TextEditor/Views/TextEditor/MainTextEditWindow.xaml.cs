@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Windows;
@@ -20,6 +21,8 @@ namespace TextEditor
         {
             InitializeComponent();
             InitializeFontOptions();
+            TextEditorViewModel textEditorViewModel = new TextEditorViewModel();
+            DataContext = textEditorViewModel;
         }
 
         public bool IsSaved

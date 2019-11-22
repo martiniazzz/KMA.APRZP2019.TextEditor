@@ -29,9 +29,6 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
 
         public static void CheckAndCreateFile(string filePath)
         {
-            //Console.WriteLine(ClientFolderPath);
-            //Console.WriteLine(LogFilepath);
-            //Console.WriteLine(LastUserFilePath);
             try
             {
                 FileInfo file = new FileInfo(filePath);
@@ -46,6 +43,22 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
             }
             catch (Exception)
             {
+                Logger.Log("Failed to create file " + filePath);
+                throw;
+            }
+        }
+
+        public static void CheckAndDeleteFile(string filePath)
+        {
+            try
+            {
+                if (File.Exists(filePath)){
+                    File.Delete(filePath);
+                }
+            }
+            catch (Exception)
+            {
+                Logger.Log("Failed to delete file "+filePath);
                 throw;
             }
         }

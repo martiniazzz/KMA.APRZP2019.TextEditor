@@ -48,7 +48,7 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient.Autologin
         {
             try
             {
-                Serializator.Serialize<User>(CurrentUser, FileFolderHelper.LastUserFilePath);
+                Serializator.SerializeOrDeleteFile<User>(CurrentUser, FileFolderHelper.LastUserFilePath);
                 Logger.Log("User was successfully serialized");
             }
             catch (Exception ex)

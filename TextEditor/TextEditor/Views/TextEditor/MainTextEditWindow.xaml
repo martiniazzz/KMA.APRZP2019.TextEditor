@@ -23,8 +23,13 @@
         <ToolBarPanel DockPanel.Dock="Top">
             <Label x:Name="UserHello" Content="Hello, User" HorizontalContentAlignment="Right"/>
         </ToolBarPanel>
-        
+
         <Menu DockPanel.Dock="Top">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch" LastChildFill="False" />
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Command="New">
                     <MenuItem.Icon>
@@ -80,6 +85,7 @@
                 <Separator />
                 <MenuItem Header="_Clear All" Command="{x:Static local:CustomCommands.ClearAll}"/>
             </MenuItem>
+            <MenuItem Header="Log out" DockPanel.Dock="Right" Command="{Binding LogoutCommand}"></MenuItem>
         </Menu>
 
         <ToolBarPanel DockPanel.Dock="Top">

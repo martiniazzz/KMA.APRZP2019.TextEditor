@@ -23,8 +23,26 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
                 Logger.Log($"Failed to serialize data to file {filePath}", ex);
+                throw;
+            }
+        }
+
+        public static void SerializeOrDeleteFile<TObject>(TObject obj, string filePath)
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    FileFolderHelper.CheckAndDeleteFile(filePath);
+                }
+                else
+                {
+                    Serialize(obj, filePath);
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }
