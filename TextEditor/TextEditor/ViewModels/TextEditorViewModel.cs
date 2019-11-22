@@ -10,12 +10,30 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
 {
     class TextEditorViewModel : INotifyPropertyChanged
     {
+
+        private String _mainTextBoxText;
+
+        private ICommand _clearAllCommand;
         private ICommand _logoutCommand;
+
+        public String MainTextBoxText
+        {
+            get
+            {
+                return _mainTextBoxText;
+            }
+            set
+            {
+                _mainTextBoxText = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand LogoutCommand
         {
@@ -29,6 +47,19 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         {
             AutoLoginService.CurrentUser = null;
             NavigationManager.Instance.Navigate(ModesEnum.LogIn);
+        }
+
+        public ICommand ClearAllCommand
+        {
+            get
+            {
+                return _clearAllCommand ?? (_clearAllCommand = new RelayCommand<object>(ClearAllExecute));
+            }
+        }
+
+        private void ClearAllExecute(object obj)
+        {
+            MainTextBoxText = String.Empty;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

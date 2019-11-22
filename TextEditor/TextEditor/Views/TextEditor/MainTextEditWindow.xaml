@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KMA.APRZP2019.TextEditorProject.TextEditor"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"     
         mc:Ignorable="d"
        d:DesignHeight="450" d:DesignWidth="800" Height="450" MinHeight="450" Width="800" MinWidth="800">
 
@@ -33,57 +35,57 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Command="New">
                     <MenuItem.Icon>
-                        <Image Source="Images/new.png"/>
+                        <Image Source="../../Images/new.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="_Open" Command="Open">
                     <MenuItem.Icon>
-                        <Image Source="Images/open.png"/>
+                        <Image Source="../../Images/open.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="_Save" Command="Save">
                     <MenuItem.Icon>
-                        <Image Source="Images/save.png"/>
+                        <Image Source="../../Images/save.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="_Exit">
                     <MenuItem.Icon>
-                        <Image Source="Images/exit.png"/>
+                        <Image Source="../../Images/exit.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Undo" Command="Undo">
                     <MenuItem.Icon>
-                        <Image Source="Images/undo.png"/>
+                        <Image Source="../../Images/undo.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="_Redo" Command="Redo">
                     <MenuItem.Icon>
-                        <Image Source="Images/redo.png"/>
+                        <Image Source="../../Images/redo.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="_Cut" Command="Cut">
                     <MenuItem.Icon>
-                        <Image Source="Images/cut.png"/>
+                        <Image Source="../../Images/cut.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="_Copy" Command="Copy">
                     <MenuItem.Icon>
-                        <Image Source="Images/copy.png"/>
+                        <Image Source="../../Images/copy.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="_Paste" Command="Paste">
                     <MenuItem.Icon>
-                        <Image Source="Images/paste.png"/>
+                        <Image Source="../../Images/paste.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="_Select All" Command="{x:Static local:CustomCommands.SelectAll}"/>
+                <MenuItem Header="_Select All" Command="SelectAll"/>
                 <Separator />
-                <MenuItem Header="_Clear All" Command="{x:Static local:CustomCommands.ClearAll}"/>
+                <MenuItem Header="_Clear All" Command="{Binding ClearAllCommand}" CommandParameter="{Binding MainTextBoxText}"/>
             </MenuItem>
             <MenuItem Header="Log out" DockPanel.Dock="Right" Command="{Binding LogoutCommand}"></MenuItem>
         </Menu>
@@ -92,43 +94,43 @@
             <ToolBar ToolBarTray.IsLocked="True" ToolBar.OverflowMode = "Never" >
 
                 <Button Command="New">
-                    <Image Source="Images/new.png" Width="16px" Height="16px"/>
+                    <Image Source="../../Images/new.png" Width="16px" Height="16px"/>
                 </Button>
                 <Button Command="Open">
-                    <Image Source="Images/open.png" Width="16px" Height="16px"/>
+                    <Image Source="../../Images/open.png" Width="16px" Height="16px"/>
                 </Button>
                 <Button Command="Save">
-                    <Image Source="Images/save.png" Width="16px" Height="16px"/>
+                    <Image Source="../../Images/save.png" Width="16px" Height="16px"/>
                 </Button>
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
                 <Button Command="Undo">
-                    <Image Source="Images/undo.png" Width="16px" Height="16px"/>
+                    <Image Source="../../Images/undo.png" Width="16px" Height="16px"/>
                 </Button>
                 <Button Command="Redo">
-                    <Image Source="Images/redo.png" Width="16px" Height="16px"/>
+                    <Image Source="../../Images/redo.png" Width="16px" Height="16px"/>
                 </Button>
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
                 <Button Command="Cut">
-                    <Image Source="Images/cut.png" Width="16px" Height="16px"/>
+                    <Image Source="../../Images/cut.png" Width="16px" Height="16px"/>
                 </Button>
                 <Button Command="Copy">
-                    <Image Source="Images/copy.png" Width="16px" Height="16px"/>
+                    <Image Source="../../Images/copy.png" Width="16px" Height="16px"/>
                 </Button>
                 <Button Command="Paste">
-                    <Image Source="Images/paste.png" Width="16px" Height="16px"/>
+                    <Image Source="../../Images/paste.png" Width="16px" Height="16px"/>
                 </Button>
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
-                <Button x:Name="mSelectAll" Content="Select All" Command="{x:Static local:CustomCommands.SelectAll}"/>
+                <Button x:Name="mSelectAll" Content="Select All" Command="SelectAll"/>
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
-                <Button x:Name="mClearAll" Content="Clear All" Command="{x:Static local:CustomCommands.ClearAll}"/>
+                <Button x:Name="mClearAll" Content="Clear All" Command="{Binding ClearAllCommand}" CommandParameter="{Binding MainTextBoxText}"/>
 
             </ToolBar>
 
@@ -142,7 +144,7 @@
                     Command="EditingCommands.ToggleBold"
                     CommandTarget="{Binding ElementName=MainTextBox}"
                     TextBlock.FontWeight="Bold">
-                    <Image Source="Images/bold.png" Width="14px" Height="14px"/>
+                    <Image Source="../../Images/bold.png" Width="14px" Height="14px"/>
                 </ToggleButton>
 
                 <ToggleButton 
@@ -153,7 +155,7 @@
                     Command="EditingCommands.ToggleItalic"
                     CommandTarget="{Binding ElementName=MainTextBox}"
                     TextBlock.FontStyle="Italic">
-                    <Image Source="Images/italic.png" Width="14px" Height="14px"/>
+                    <Image Source="../../Images/italic.png" Width="14px" Height="14px"/>
                 </ToggleButton>
 
                 <ToggleButton 
@@ -163,7 +165,7 @@
                     Margin="3"
                     Command="EditingCommands.ToggleUnderline"
                     CommandTarget="{Binding ElementName=MainTextBox}">
-                    <Image Source="Images/underline.png" Width="14px" Height="14px"/>
+                    <Image Source="../../Images/underline.png" Width="14px" Height="14px"/>
                 </ToggleButton>
 
                 <Separator/>
@@ -186,24 +188,23 @@
             <Label>Last Modified:</Label>
         </StatusBar>
 
-        <RichTextBox x:Name="MainTextBox" 
+        <xctk:RichTextBox x:Name="MainTextBox" 
                      AcceptsReturn="True"
                      TextOptions.TextFormattingMode="Ideal" 
                      TextOptions.TextRenderingMode="Aliased" 
                      AcceptsTab="True" 
                      TextChanged="OnTextChanged" 
                      VerticalScrollBarVisibility="Auto" 
-                     SelectionChanged="OnTextBoxSelectionChanged">
+                     SelectionChanged="OnTextBoxSelectionChanged"
+                          Text="{Binding MainTextBoxText}">
+            <xctk:RichTextBox.TextFormatter>
+                <xctk:RtfFormatter />
+            </xctk:RichTextBox.TextFormatter>
             <RichTextBox.CommandBindings>
-                <CommandBinding Command="{x:Static local:CustomCommands.SelectAll}" 
-                                Executed="SelectAll_Executed" 
-                                CanExecute="SelectAll_CanExecute"/>
-                <CommandBinding Command="{x:Static local:CustomCommands.ClearAll}" 
-                                Executed="ClearAll_Executed" 
-                                CanExecute="ClearAll_CanExecute"/>
+                <CommandBinding Command="SelectAll" />
             </RichTextBox.CommandBindings>
-        </RichTextBox>
-
+        </xctk:RichTextBox>
+    
     </DockPanel>
 
 </UserControl>

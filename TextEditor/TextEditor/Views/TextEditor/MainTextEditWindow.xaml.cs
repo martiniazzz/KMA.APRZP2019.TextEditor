@@ -46,26 +46,6 @@ namespace TextEditor
                 MainTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, e.AddedItems[0]);
         }
 
-        private void SelectAll_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void SelectAll_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MainTextBox.SelectAll();
-        }
-
-        private void ClearAll_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void ClearAll_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MainTextBox.Document.Blocks.Clear();
-        }
-
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (!_isSaved)
