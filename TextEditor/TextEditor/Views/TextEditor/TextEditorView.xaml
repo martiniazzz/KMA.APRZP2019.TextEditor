@@ -100,13 +100,13 @@
         <ToolBarPanel DockPanel.Dock="Top">
             <ToolBar ToolBarTray.IsLocked="True" ToolBar.OverflowMode = "Never" >
 
-                <Button Command="New">
+                <Button Command="{Binding NewFileCommand}">
                     <Image Source="../../Images/new.png" Width="16px" Height="16px"/>
                 </Button>
-                <Button Command="Open">
+                <Button Command="{Binding OpenFileCommand}">
                     <Image Source="../../Images/open.png" Width="16px" Height="16px"/>
                 </Button>
-                <Button Command="Save">
+                <Button Command="{Binding SaveFileCommand}">
                     <Image Source="../../Images/save.png" Width="16px" Height="16px"/>
                 </Button>
 
