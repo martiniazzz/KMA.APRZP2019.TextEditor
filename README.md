@@ -17,6 +17,7 @@ changes. Files are opened and saved in separate threads. Each user request is st
 7. Run command: Update-Database -TargetMigration: UserModelChangeMigration
 8. Right click on solution -> Properties -> Multiple startup projects -> Set TextEditorWebApp and TextEditor projects as start
 9. Start project
+10. Note : if project didn't start at first time, try rebuilding solution
 
 
 ##
