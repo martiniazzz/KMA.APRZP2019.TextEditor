@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using KMA.APRZP2019.TextEditorProject.DBModels;
+using System.Threading;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
 {
@@ -113,6 +114,8 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                         MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));
                         return false;
                     }
+                    //this code added to show loader working
+                    Thread.Sleep(3000);
                     using (var restClient = new UserApiService())
                     {
                         if (restClient.UserExists(Login))

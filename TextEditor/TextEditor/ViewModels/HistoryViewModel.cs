@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -40,6 +41,8 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                 {
                     try
                     {
+                        //this code added to show loader working
+                        Thread.Sleep(3000);
                         using (UserRequestApiService userRequestApi = new UserRequestApiService())
                         {
                             IEnumerable<UserRequest> userRequests = userRequestApi.GetUserRequests(AutoLoginService.CurrentUser.Guid)

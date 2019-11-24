@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
 {
-    class MainWindowViewModel: ILoaderOwner
+    public class MainWindowViewModel: ILoaderOwner
     {
         private ICommand _exitCommand;
 

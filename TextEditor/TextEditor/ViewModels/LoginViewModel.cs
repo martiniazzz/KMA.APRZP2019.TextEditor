@@ -70,6 +70,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                 User currentUser;
                 try
                 {
+                    //this code added to show loader working
                     Thread.Sleep(3000);
                     using (var restClient = new UserApiService())
                     {

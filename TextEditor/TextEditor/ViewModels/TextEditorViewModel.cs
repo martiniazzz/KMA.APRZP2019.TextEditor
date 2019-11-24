@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -260,6 +261,8 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             {
                 try
                 {
+                    //this code added to show loader working
+                    Thread.Sleep(3000);
                     if (doc.Dispatcher.CheckAccess())
                     {
                         _fileService.Save(filepath, doc.ContentStart, doc.ContentEnd);
@@ -294,6 +297,8 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             {
                 try
                 {
+                    //this code added to show loader working
+                    Thread.Sleep(3000);
                     if (doc.Dispatcher.CheckAccess())
                     {
                         _fileService.Load(filepath, doc.ContentStart, doc.ContentEnd);
