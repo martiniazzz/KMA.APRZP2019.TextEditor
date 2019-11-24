@@ -1,23 +1,33 @@
 ﻿using KMA.APRZP2019.TextEditorProject.DBModels;
+using KMA.APRZP2019.TextEditorProject.EnityFrameworkWrapper;
 using KMA.APRZP2019.TextEditorProject.TextEditorServerInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditorServerImp
 {
-    class UserRequestServiceImpl : IUserRequestService
+    public class UserRequestServiceImpl : IUserRequestService
     {
-        public void addUserRequest(int userId, UserRequest request)
+        public void AddUserRequest(Guid userGuid, UserRequest request)
         {
-            throw new NotImplementedException();
+            using (TextEditorDbContext context = new TextEditorDbContext())
+            {
+                context.Users.Single(x => x.Guid == userGuid).Requests.Add(request);
+                context.SaveChanges();
+            }
         }
 
-        public IEnumerable<UserRequest> GetUserRequests(int userId)
+        public IEnumerable<UserRequest> GetUserRequests(Guid userGuid)
         {
-            throw new NotImplementedException();
+            using (TextEditorDbContext context = new TextEditorDbContext())
+            {
+                return context.Users.Include(u => u.Requests).Single(x => x.Guid == userGuid).Requests.OrderByDescending(r => r.ChangedAt).ToList();
+            }
         }
+
     }
 }

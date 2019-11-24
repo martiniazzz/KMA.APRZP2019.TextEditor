@@ -60,6 +60,16 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
         {
             //If _navigationModel is null, nothing will happen
             _navigationModel?.Navigate(mode);
+            OnNavigateModeChanged(mode);
         }
+
+        #region Events and Handlers
+        internal event NavigateModeChangedHandler NavigateModeChanged;
+        internal delegate void NavigateModeChangedHandler(ModesEnum mode);
+        internal virtual void OnNavigateModeChanged(ModesEnum mode)
+        {
+            NavigateModeChanged?.Invoke(mode);
+        }
+        #endregion
     }
 }

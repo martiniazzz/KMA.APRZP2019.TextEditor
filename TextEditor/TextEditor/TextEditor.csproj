@@ -105,9 +105,15 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Exceptions\LoadFileException.cs" />
+    <Compile Include="Models\Exceptions\SaveFileException.cs" />
     <Compile Include="Models\ValueObjects\PagesEnum.cs" />
+    <Compile Include="Services\Interfaces\IDialogService.cs" />
+    <Compile Include="Services\Interfaces\IFileService.cs" />
     <Compile Include="Services\LoaderService.cs" />
     <Compile Include="Services\NavigationManager.cs" />
+    <Compile Include="Services\RtfFileService.cs" />
+    <Compile Include="Services\TextEditorDialogService.cs" />
     <Compile Include="Tools\Controls\PassswordControl.xaml.cs">
       <DependentUpon>PassswordControl.xaml</DependentUpon>
     </Compile>
@@ -116,6 +122,7 @@
     <Compile Include="Tools\NavigationModel.cs" />
     <Compile Include="Tools\PasswordBoxAssistant.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
@@ -135,7 +142,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TextEditor\MainTextEditWindow.xaml">
+    <Page Include="Views\History\HistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TextEditor\TextEditorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -146,11 +157,14 @@
     <Compile Include="Views\Authentication\RegisterFormView.xaml.cs">
       <DependentUpon>RegisterFormView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\History\HistoryView.xaml.cs">
+      <DependentUpon>HistoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TextEditor\FileOptionHandler.cs" />
     <Compile Include="Views\TextEditor\FontList.cs" />
     <Compile Include="Views\TextEditor\FontSizesList.cs" />
-    <Compile Include="Views\TextEditor\MainTextEditWindow.xaml.cs">
-      <DependentUpon>MainTextEditWindow.xaml</DependentUpon>
+    <Compile Include="Views\TextEditor\TextEditorView.xaml.cs">
+      <DependentUpon>TextEditorView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Authentication\LoginFormView.xaml">
@@ -234,7 +248,12 @@
       <Project>{B4C5C86C-6F5B-4014-AAF4-11D367E14F45}</Project>
       <Name>TextEditorServerInterface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{60EEBFC6-D7A9-47E6-BAF6-3854D13BDECE}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

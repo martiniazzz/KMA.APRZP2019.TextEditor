@@ -1,6 +1,7 @@
 ﻿using KMA.APRZP2019.TextEditorProject.TextEditor.Models.ValueObjects;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Tools.interfaces;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Views.Authentication;
+using KMA.APRZP2019.TextEditorProject.TextEditor.Views.History;
 using LoginControl;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Tools
         private LoginFormView  _loginView;
         private RegisterFormView _registerView;
         private TextEditorView _textEditorView;
+        private HistoryView _historyView;
 
         internal NavigationModel(IContentWindow contentWindow)
         {
@@ -38,10 +40,12 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Tools
                 case ModesEnum.TextEditor:
                     _contentWindow.ContentControl.Content = _textEditorView ?? (_textEditorView = new TextEditorView());
                     break;
-                default:
+                case ModesEnum.History:
+                    _contentWindow.ContentControl.Content = _historyView ?? (_historyView = new HistoryView());
+                    break;
+               default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
             }
         }
-
     }
 }

@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -69,7 +70,8 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                 User currentUser;
                 try
                 {
-                    using (var restClient = new RestClientApiService())
+                    Thread.Sleep(3000);
+                    using (var restClient = new UserApiService())
                     {
                         currentUser = restClient.GetUserByLoginOrEmail(Login);
                     }

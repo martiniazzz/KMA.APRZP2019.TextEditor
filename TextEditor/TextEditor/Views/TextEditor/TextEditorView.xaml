@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KMA.APRZP2019.TextEditorProject.TextEditor"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"     
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+        xmlns:autologin="clr-namespace:KMA.APRZP2019.TextEditorProject.RestClient.Autologin;assembly=RestClient"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
        d:DesignHeight="450" d:DesignWidth="800" Height="450" MinHeight="450" Width="800" MinWidth="800">
 
@@ -14,16 +17,19 @@
         <DockPanel.Resources>
             <local:FontList x:Key="FontListSourse"/>
             <local:FontSizesList x:Key="FontSizesListSourse"/>
+            <s:Boolean x:Key="True">True</s:Boolean>
+            <s:Boolean x:Key="False">False</s:Boolean>
         </DockPanel.Resources>
 
-        <DockPanel.CommandBindings>
+        <!--<DockPanel.CommandBindings>
             <CommandBinding Command="ApplicationCommands.New" Executed="New_Executed" />
             <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
             <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
-        </DockPanel.CommandBindings>
+        </DockPanel.CommandBindings>-->
 
         <ToolBarPanel DockPanel.Dock="Top">
-            <Label x:Name="UserHello" Content="Hello, User" HorizontalContentAlignment="Right"/>
+            <Label x:Name="UserHello" Content="{Binding Source={x:Static autologin:AutoLoginService.CurrentUser}, Path=FirstName}" ContentStringFormat="Hello, {0}"  HorizontalContentAlignment="Right"/>
+            
         </ToolBarPanel>
 
         <Menu DockPanel.Dock="Top">
@@ -33,17 +39,17 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Command="New">
+                <MenuItem Header="_New" Command="{Binding NewFileCommand}" CommandParameter="{Binding ElementName=MainTextBox, Path=Document}">
                     <MenuItem.Icon>
                         <Image Source="../../Images/new.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Open" Command="Open">
+                <MenuItem Header="_Open" Command="{Binding OpenFileCommand}" CommandParameter="{Binding ElementName=MainTextBox, Path=Document}">
                     <MenuItem.Icon>
                         <Image Source="../../Images/open.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Save" Command="Save">
+                <MenuItem Header="_Save" Command="{Binding SaveFileCommand}" CommandParameter="{Binding ElementName=MainTextBox, Path=Document}" >
                     <MenuItem.Icon>
                         <Image Source="../../Images/save.png"/>
                     </MenuItem.Icon>
@@ -87,6 +93,7 @@
                 <Separator />
                 <MenuItem Header="_Clear All" Command="{Binding ClearAllCommand}" CommandParameter="{Binding MainTextBoxText}"/>
             </MenuItem>
+            <MenuItem Header="History" Command="{Binding OpenHistoryCommand}"></MenuItem>
             <MenuItem Header="Log out" DockPanel.Dock="Right" Command="{Binding LogoutCommand}"></MenuItem>
         </Menu>
 
@@ -192,14 +199,20 @@
                      AcceptsReturn="True"
                      TextOptions.TextFormattingMode="Ideal" 
                      TextOptions.TextRenderingMode="Aliased" 
-                     AcceptsTab="True" 
-                     TextChanged="OnTextChanged" 
+                     AcceptsTab="True"  
                      VerticalScrollBarVisibility="Auto" 
                      SelectionChanged="OnTextBoxSelectionChanged"
                           Text="{Binding MainTextBoxText}">
             <xctk:RichTextBox.TextFormatter>
                 <xctk:RtfFormatter />
             </xctk:RichTextBox.TextFormatter>
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding SwitchIsSavedCommand}" CommandParameter="{StaticResource False}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
             <RichTextBox.CommandBindings>
                 <CommandBinding Command="SelectAll" />
             </RichTextBox.CommandBindings>

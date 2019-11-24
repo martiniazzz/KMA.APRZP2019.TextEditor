@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace KMA.APRZP2019.TextEditorProject.DBModels
 {
+    [Serializable]
     [DataContract(IsReference = true)]
     public class UserRequest : IDBModel
     {
         [DataMember]
         private Guid _guid;
+        [DataMember]
         private string _filepath;
+        [DataMember]
         private bool _isFileChanged;
+        [DataMember]
         private DateTime _changedAt;
 
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KMA.APRZP2019.TextEditorProject.RestClient.Autologin
 {
-    public class AutoLoginService
+    public static class AutoLoginService
     {
         public static User CurrentUser { get; set; }
 
@@ -34,7 +34,7 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient.Autologin
                 Logger.Log("User was not deserialized");
                 return;
             }
-            using (var restClient = new RestClientApiService())
+            using (var restClient = new UserApiService())
             {
                 userCandidate = restClient.GetUserByGuid(userCandidate.Guid);
             }

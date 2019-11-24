@@ -24,7 +24,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditorServerImp
         {
             using (TextEditorDbContext context = new TextEditorDbContext())
             {
-               return context.Users.FirstOrDefault(u => u.Guid == guid);
+                return context.Users.FirstOrDefault(u => u.Guid == guid);
             }
         }
 
@@ -40,7 +40,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditorServerImp
         {
             using (var context = new TextEditorDbContext())
             {
-                return context.Users.Any(u => u.Login== loginOrEmail || u.Email == loginOrEmail);
+                return context.Users.Any(u => u.Login == loginOrEmail || u.Email == loginOrEmail);
             }
         }
 

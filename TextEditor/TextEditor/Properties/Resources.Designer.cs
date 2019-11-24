@@ -61,6 +61,24 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to load file {0}.
+        /// </summary>
+        internal static string LoadFileException_Msg {
+            get {
+                return ResourceManager.GetString("LoadFileException_Msg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save file {0}.
+        /// </summary>
+        internal static string SaveFileException_Msg {
+            get {
+                return ResourceManager.GetString("SaveFileException_Msg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to get user.{0}Reason: {1}.
         /// </summary>
         internal static string SignIn_FailedToGetUser {
@@ -129,6 +147,24 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Properties {
         internal static string SignUp_UserSuccessfulyCreated {
             get {
                 return ResourceManager.GetString("SignUp_UserSuccessfulyCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save user request to history.
+        /// </summary>
+        internal static string UserRequest_AddFailed {
+            get {
+                return ResourceManager.GetString("UserRequest_AddFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load history of requests.
+        /// </summary>
+        internal static string UserRequest_LoadAllFailed {
+            get {
+                return ResourceManager.GetString("UserRequest_LoadAllFailed", resourceCulture);
             }
         }
     }

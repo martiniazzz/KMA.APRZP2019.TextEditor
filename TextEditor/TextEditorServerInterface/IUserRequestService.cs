@@ -11,9 +11,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditorServerInterface
     public interface IUserRequestService
     {
         [OperationContract]
-        IEnumerable<UserRequest> GetUserRequests(int userId);
+        IEnumerable<UserRequest> GetUserRequests(Guid userGuid);
 
         [OperationContract]
-        void addUserRequest(int userId, UserRequest request);
+        void AddUserRequest(Guid userGuid, UserRequest request);
     }
 }

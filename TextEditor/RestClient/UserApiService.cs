@@ -11,20 +11,20 @@ using System.Web;
 
 namespace KMA.APRZP2019.TextEditorProject.RestClient
 {
-    public class RestClientApiService : IDisposable, IUserService
+    public class UserApiService : IDisposable, IUserService
     {
 
-        HttpClient _client = new HttpClient();
-        Uri _serviceBaseUri;
+        private HttpClient _client = new HttpClient();
+        private Uri _serviceBaseUri;
+
+        public UserApiService()
+        {
+            _serviceBaseUri = new Uri(@"https://localhost:44341/api/User");
+        }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
-
-        public RestClientApiService()
-        {
-            _serviceBaseUri = new Uri(@"https://localhost:44341/api/User");
-        }
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -39,7 +39,7 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient
             }
         }
 
-        ~RestClientApiService()
+        ~UserApiService()
         {
             Dispose(false);
         }
@@ -67,19 +67,15 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient
                 return response.Content.ReadAsAsync<IEnumerable<User>>().Result;
 
             }
-            else if (response.StatusCode != HttpStatusCode.NotFound)
+            else
             {
                 throw new InvalidOperationException("Get failed with " + response.StatusCode.ToString());
             }
-
-            return new List<User>();
         }
 
         public bool UserExists(string loginOrEmail)
         {
             var response = _client.GetAsync(_serviceBaseUri.AddSegment(nameof(UserExists)).AddUriParam(nameof(loginOrEmail), loginOrEmail)).Result;
-            Console.WriteLine(_serviceBaseUri.AddSegment(nameof(UserExists)).AddUriParam(nameof(loginOrEmail), loginOrEmail));
-            Console.WriteLine(response);
             if (response.IsSuccessStatusCode)
             {
                 return response.Content.ReadAsAsync<bool>().Result;
@@ -93,7 +89,6 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient
         public User GetUserByGuid(Guid guid)
         {
             var response = _client.GetAsync(_serviceBaseUri.AddSegment(nameof(GetUserByGuid)).AddUriParam(nameof(guid), guid.ToString())).Result;
-            Console.WriteLine(_serviceBaseUri.AddSegment(nameof(GetUserByGuid)).AddUriParam(nameof(guid), guid.ToString()));
             if (response.IsSuccessStatusCode)
             {
                 return response.Content.ReadAsAsync<User>().Result;

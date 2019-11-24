@@ -113,7 +113,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                         MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));
                         return false;
                     }
-                    using (var restClient = new RestClientApiService())
+                    using (var restClient = new UserApiService())
                     {
                         if (restClient.UserExists(Login))
                         {
@@ -132,7 +132,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                 try
                 {
                     var user = new User(Login,FirstName,LastName,Email,Password);
-                    using (var restClient = new RestClientApiService())
+                    using (var restClient = new UserApiService())
                     {
                         restClient.AddUser(user);
                     }

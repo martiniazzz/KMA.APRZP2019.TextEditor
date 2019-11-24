@@ -10,6 +10,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Models.ValueObjects
     {
         LogIn,
         Register,
-        TextEditor
+        TextEditor,
+        History
     }
 }
