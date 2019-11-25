@@ -70,6 +70,33 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to save file.
+        /// </summary>
+        internal static string SaveFile_Failed {
+            get {
+                return ResourceManager.GetString("SaveFile_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to save the current file?.
+        /// </summary>
+        internal static string SaveFile_Question {
+            get {
+                return ResourceManager.GetString("SaveFile_Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved.
+        /// </summary>
+        internal static string SaveFile_Success {
+            get {
+                return ResourceManager.GetString("SaveFile_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to save file {0}.
         /// </summary>
         internal static string SaveFileException_Msg {

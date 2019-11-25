@@ -7,6 +7,7 @@ using KMA.APRZP2019.TextEditorProject.TextEditor.Properties;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Services;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Services.interfaces;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Tools;
+using KMA.APRZP2019.TextEditorProject.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,6 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
 {
     class TextEditorViewModel : INotifyPropertyChanged
     {
-        private string _oldTextBoxText;
         private string _mainTextBoxText;
         private bool _isSaved = true;
         private string _filePath;
@@ -48,22 +48,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         {
             this._dialogService = dialogService;
             this._fileService = fileService;
-            UpdateOldText();
         }
 
         #region Data properties
-
-        private string OldTextBoxText
-        {
-            get
-            {
-                return _oldTextBoxText;
-            }
-            set
-            {
-                _oldTextBoxText = value;
-            }
-        }
 
         public string MainTextBoxText
         {
@@ -146,7 +133,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             {
                 if (!IsSaved)
                 {
-                    MessageBoxResult answ = _dialogService.ShowYesNoQuestion("Would you like to save the current file?");
+                    MessageBoxResult answ = _dialogService.ShowYesNoQuestion(Resources.SaveFile_Question);
                     if (answ == MessageBoxResult.Cancel)
                     {
                         return;
@@ -155,15 +142,16 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     {
                         if (_dialogService.SaveFileDialog() == true)
                         {
+                            bool isFileChanged = IsChanged(MainTextBoxText, _dialogService.FilePath);
                             bool isSuccess = await SaveFileAsync(_dialogService.FilePath, doc);
                             if (isSuccess)
                             {
-                                _dialogService.ShowMessage("Saved");
-                                AddUserRequestAsync(_dialogService.FilePath, IsTextChanged());
+                                _dialogService.ShowMessage(Resources.SaveFile_Success);
+                                AddUserRequestAsync(_dialogService.FilePath, isFileChanged);
                             }
                             else
                             {
-                                _dialogService.ShowMessage("Failed to save file");
+                                _dialogService.ShowMessage(Resources.SaveFile_Failed);
                             }
                         }
                     }
@@ -175,7 +163,6 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     {
                         throw new LoadFileException(String.Format(Resources.LoadFileException_Msg, _dialogService.FilePath));
                     }
-                    UpdateOldText();
                 }
             }
             catch (Exception ex)
@@ -198,12 +185,13 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             {
                 if (_dialogService.SaveFileDialog() == true)
                 {
+                    bool isFileChanged = IsChanged(MainTextBoxText, _dialogService.FilePath);
                     bool isSuccess = await SaveFileAsync(_dialogService.FilePath, doc);
                     if (!isSuccess)
                     {
                         throw new SaveFileException(String.Format(Resources.SaveFileException_Msg, _dialogService.FilePath));
                     }
-                    AddUserRequestAsync(_dialogService.FilePath, IsTextChanged());
+                    AddUserRequestAsync(_dialogService.FilePath, isFileChanged);
                 }
             }
             catch (Exception ex)
@@ -226,7 +214,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             {
                 if (!IsSaved)
                 {
-                    MessageBoxResult answ = _dialogService.ShowYesNoQuestion("Would you like to save the current file?");
+                    MessageBoxResult answ = _dialogService.ShowYesNoQuestion(Resources.SaveFile_Question);
                     if (answ == MessageBoxResult.Cancel)
                     {
                         return;
@@ -235,17 +223,17 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     {
                         if (_dialogService.SaveFileDialog() == true)
                         {
+                            bool isFileChanged = IsChanged(MainTextBoxText, _dialogService.FilePath);
                             bool isSuccess = await SaveFileAsync(_dialogService.FilePath, doc);
                             if (!isSuccess)
                             {
                                 throw new SaveFileException(String.Format(Resources.SaveFileException_Msg, _dialogService.FilePath));
                             }
-                            AddUserRequestAsync(_dialogService.FilePath, IsTextChanged());
+                            AddUserRequestAsync(_dialogService.FilePath, isFileChanged);
                         }
                     }
                 }
                 MainTextBoxText = string.Empty;
-                UpdateOldText();
             }
             catch (Exception ex)
             {
@@ -277,8 +265,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     }
                     return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Log(ex);
                     return false;
                 }
             });
@@ -329,7 +318,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                 bool isSuccess = await Task.Run(() =>
                 {
                     try
-                    { 
+                    {
                         requestService.AddUserRequest(AutoLoginService.CurrentUser.Guid, new UserRequest(filepath, isChanged, DateTime.UtcNow));
                         return true;
                     }
@@ -338,12 +327,8 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                         return false;
                     }
                 });
-                if (isSuccess)
-                {
-                    UpdateOldText();
-                }
-                else
-                {
+                if (!isSuccess)
+                { 
                     _dialogService.ShowMessage(Resources.UserRequest_AddFailed);
                 }
             }
@@ -379,14 +364,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         #endregion
 
         #region Text comparison
-        private void UpdateOldText()
+        bool IsChanged(String text, String filepath)
         {
-            OldTextBoxText = MainTextBoxText;
-        }
-
-        private bool IsTextChanged()
-        {
-            return OldTextBoxText != MainTextBoxText;
+            return !(FileComparison.EqualsTextToFileText(text, filepath));
         }
         #endregion
 

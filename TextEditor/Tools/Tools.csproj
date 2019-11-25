@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encryptor.cs" />
+    <Compile Include="FileComparison.cs" />
     <Compile Include="FileFolderHelper.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Serializator.cs" />

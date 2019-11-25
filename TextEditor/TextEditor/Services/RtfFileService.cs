@@ -1,6 +1,7 @@
 ﻿using KMA.APRZP2019.TextEditorProject.TextEditor.Models.Exceptions;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Properties;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Services.interfaces;
+using KMA.APRZP2019.TextEditorProject.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +27,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Logger.Log(ex);
                 throw new LoadFileException(String.Format(Resources.LoadFileException_Msg, filename));
             }
         }
@@ -43,7 +44,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Logger.Log(ex);
                 throw new SaveFileException(String.Format(Resources.SaveFileException_Msg, filename));
             }
         }

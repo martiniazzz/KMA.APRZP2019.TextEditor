@@ -21,12 +21,6 @@
             <s:Boolean x:Key="False">False</s:Boolean>
         </DockPanel.Resources>
 
-        <!--<DockPanel.CommandBindings>
-            <CommandBinding Command="ApplicationCommands.New" Executed="New_Executed" />
-            <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
-            <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
-        </DockPanel.CommandBindings>-->
-
         <ToolBarPanel DockPanel.Dock="Top">
             <Label x:Name="UserHello" Content="{Binding Source={x:Static autologin:AutoLoginService.CurrentUser}, Path=FirstName}" ContentStringFormat="Hello, {0}"  HorizontalContentAlignment="Right"/>
             
@@ -100,13 +94,13 @@
         <ToolBarPanel DockPanel.Dock="Top">
             <ToolBar ToolBarTray.IsLocked="True" ToolBar.OverflowMode = "Never" >
 
-                <Button Command="{Binding NewFileCommand}">
+                <Button Command="{Binding NewFileCommand}" CommandParameter="{Binding ElementName=MainTextBox, Path=Document}">
                     <Image Source="../../Images/new.png" Width="16px" Height="16px"/>
                 </Button>
-                <Button Command="{Binding OpenFileCommand}">
+                <Button Command="{Binding OpenFileCommand}" CommandParameter="{Binding ElementName=MainTextBox, Path=Document}">
                     <Image Source="../../Images/open.png" Width="16px" Height="16px"/>
                 </Button>
-                <Button Command="{Binding SaveFileCommand}">
+                <Button Command="{Binding SaveFileCommand}" CommandParameter="{Binding ElementName=MainTextBox, Path=Document}">
                     <Image Source="../../Images/save.png" Width="16px" Height="16px"/>
                 </Button>
 
