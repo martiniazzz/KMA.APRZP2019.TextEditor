@@ -41,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autologin\AutoLoginService.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="UserApiService.cs" />
     <Compile Include="UserRequestApiService.cs" />
   </ItemGroup>

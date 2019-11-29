@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity.ModelConfiguration;
 using KMA.APRZP2019.TextEditorProject.DBModels;
 
 namespace KMA.APRZP2019.TextEditorProject.EnityFrameworkWrapper.ModelConfiguration

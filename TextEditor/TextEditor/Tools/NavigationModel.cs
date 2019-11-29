@@ -4,11 +4,6 @@ using KMA.APRZP2019.TextEditorProject.TextEditor.Views.Authentication;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Views.History;
 using LoginControl;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using TextEditor;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditor.Tools

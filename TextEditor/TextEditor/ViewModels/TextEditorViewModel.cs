@@ -9,19 +9,14 @@ using KMA.APRZP2019.TextEditorProject.TextEditor.Services.interfaces;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Tools;
 using KMA.APRZP2019.TextEditorProject.Tools;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Threading;
-using Xceed.Wpf.Toolkit;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
 {
@@ -30,7 +25,6 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         private string _mainTextBoxText;
         private bool _isSaved = true;
         private string _filePath;
-        private string _lastModifiedDateStr;
 
         private IDialogService _dialogService;
         private IFileService _fileService;

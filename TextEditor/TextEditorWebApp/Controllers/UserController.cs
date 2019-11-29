@@ -3,9 +3,6 @@ using KMA.APRZP2019.TextEditorProject.TextEditorServerImp;
 using KMA.APRZP2019.TextEditorProject.TextEditorServerInterface;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace TextEditorWebApp.Controllers

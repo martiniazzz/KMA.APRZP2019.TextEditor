@@ -1,7 +1,4 @@
-﻿using KMA.APRZP2019.TextEditorProject.TextEditor;
-using KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels;
-using System;
-using System.Windows;
+﻿using KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels;
 using System.Windows.Controls;
 
 namespace LoginControl

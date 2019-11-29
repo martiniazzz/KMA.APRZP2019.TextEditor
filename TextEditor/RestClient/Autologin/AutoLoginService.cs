@@ -1,11 +1,6 @@
 ﻿using KMA.APRZP2019.TextEditorProject.DBModels;
 using KMA.APRZP2019.TextEditorProject.Tools;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KMA.APRZP2019.TextEditorProject.RestClient.Autologin
 {

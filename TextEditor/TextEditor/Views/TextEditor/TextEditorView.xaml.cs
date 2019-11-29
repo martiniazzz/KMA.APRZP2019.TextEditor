@@ -1,12 +1,9 @@
 ﻿using KMA.APRZP2019.TextEditorProject.TextEditor.Services;
 using KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels;
-using Microsoft.Win32;
 using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
 
 namespace TextEditor
 {

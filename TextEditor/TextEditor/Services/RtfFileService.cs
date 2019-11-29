@@ -3,11 +3,7 @@ using KMA.APRZP2019.TextEditorProject.TextEditor.Properties;
 using KMA.APRZP2019.TextEditorProject.TextEditor.Services.interfaces;
 using KMA.APRZP2019.TextEditorProject.Tools;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 
