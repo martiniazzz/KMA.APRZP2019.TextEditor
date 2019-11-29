@@ -1,7 +1,9 @@
 ﻿namespace KMA.APRZP2019.TextEditorProject.EnityFrameworkWrapper.Migrations
 {
     using System.Data.Entity.Migrations;
-
+    /// <summary>
+    /// Configuration class for Entity Frameworks migrations
+    /// </summary>
     internal sealed class Configuration : DbMigrationsConfiguration<KMA.APRZP2019.TextEditorProject.EnityFrameworkWrapper.TextEditorDbContext>
     {
         public Configuration()

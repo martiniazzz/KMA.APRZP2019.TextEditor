@@ -3,6 +3,9 @@ using KMA.APRZP2019.TextEditorProject.DBModels;
 
 namespace KMA.APRZP2019.TextEditorProject.EnityFrameworkWrapper.ModelConfiguration
 {
+    /// <summary>
+    /// Class that represents Fluent API mapping for <c>User</c> class <see cref="User"/>
+    /// </summary>
     class UserConfiguration : EntityTypeConfiguration<User>
     {
         public UserConfiguration()

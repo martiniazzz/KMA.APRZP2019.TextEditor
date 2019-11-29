@@ -8,6 +8,10 @@ namespace TextEditorWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Gets home page of the web application
+        /// </summary>
+        /// <returns>View that is rendered to response</returns>
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";

@@ -5,13 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditorServerImp
 {
     public class UserRequestServiceImpl : IUserRequestService
     {
+        /// <summary>
+        /// Saves new user request about changing file in the database
+        /// </summary>
+        /// <remarks>using Entity Framework</remarks>
+        /// <param name="userGuid">Id of the user who created request</param>
+        /// <param name="request">New user request to save</param>
         public void AddUserRequest(Guid userGuid, UserRequest request)
         {
             using (TextEditorDbContext context = new TextEditorDbContext())
@@ -21,6 +25,12 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditorServerImp
             }
         }
 
+        /// <summary>
+        /// Gets all request about changes in files from database for certain user
+        /// </summary>
+        /// <remarks>using Entity Framework</remarks>
+        /// <param name="userGuid">Id of the user to retrieve requests</param>
+        /// <returns>List of user requests</returns>
         public IEnumerable<UserRequest> GetUserRequests(Guid userGuid)
         {
             using (TextEditorDbContext context = new TextEditorDbContext())

@@ -25,6 +25,7 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
         [DataMember]
         private List<UserRequest> _requests;
 
+        #region Properties
         public Guid Guid
         {
             get
@@ -103,7 +104,9 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
                 _requests = value;
             }
         }
+        #endregion
 
+        #region Constructors
         public User()
         {
             Requests = new List<UserRequest>();
@@ -117,10 +120,23 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
             _email = email;
             SetPassword(password);
         }
+        #endregion
+
+        #region Password encryption
+        /// <summary>
+        /// Encypts password and sets the result as user password property 
+        /// </summary>
+        /// <param name="password">Passoword to encrypt</param>
         private void SetPassword(string password)
         {
             _password = Encryptor.GetMd5HashForString(password);
         }
+
+        /// <summary>
+        /// Encrypts the specified password ans then checks if it matches user password property
+        /// </summary>
+        /// <param name="password">Plain text password to check</param>
+        /// <returns></returns>
         public bool CheckPassword(string password)
         {
             try
@@ -128,10 +144,11 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
                 string res2 = Encryptor.GetMd5HashForString(password);
                 return _password == res2;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
         }
+        #endregion
     }
 }

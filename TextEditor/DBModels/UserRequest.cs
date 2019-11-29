@@ -17,6 +17,7 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
         private DateTime _changedAt;
 
 
+        #region Properties
         public Guid Guid
         {
             get
@@ -64,7 +65,9 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
                 _changedAt = value;
             }
         }
+        #endregion
 
+        #region Constructors
         public UserRequest()
         {
 
@@ -77,5 +80,6 @@ namespace KMA.APRZP2019.TextEditorProject.DBModels
             IsFileChanged = isFileChanged;
             ChangedAt = changedAt;
         }
+        #endregion
     }
 }

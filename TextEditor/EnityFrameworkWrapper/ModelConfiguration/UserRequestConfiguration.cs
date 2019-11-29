@@ -3,6 +3,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace KMA.APRZP2019.TextEditorProject.EnityFrameworkWrapper.ModelConfiguration
 {
+    /// <summary>
+    ///  Class that represents Fluent API mapping for <c>UserRequest</c> class <see cref="UserRequest"/>
+    /// </summary>
     class UserRequestConfiguration : EntityTypeConfiguration<UserRequest>
     {
         public UserRequestConfiguration()
