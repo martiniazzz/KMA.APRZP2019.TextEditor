@@ -11,6 +11,7 @@ using KMA.APRZP2019.TextEditorProject.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -29,6 +30,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         private string _mainTextBoxText;
         private bool _isSaved = true;
         private string _filePath;
+        private string _lastModifiedDateStr;
 
         private IDialogService _dialogService;
         private IFileService _fileService;
@@ -88,7 +90,24 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             {
                 _filePath = value;
                 OnPropertyChanged();
+                OnPropertyChanged("LastModifiedDateStr");
             }
+        }
+
+        public string LastModifiedDateStr
+        {
+            get
+            {
+                if (File.Exists(FilePath))
+                {
+                    return File.GetLastWriteTime(FilePath).ToString();
+                }
+                else
+                {
+                    return "new file";
+                }
+            }
+          
         }
         #endregion
 
@@ -140,20 +159,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     }
                     if (answ == MessageBoxResult.Yes)
                     {
-                        if (_dialogService.SaveFileDialog() == true)
-                        {
-                            bool isFileChanged = IsChanged(MainTextBoxText, _dialogService.FilePath);
-                            bool isSuccess = await SaveFileAsync(_dialogService.FilePath, doc);
-                            if (isSuccess)
-                            {
-                                _dialogService.ShowMessage(Resources.SaveFile_Success);
-                                AddUserRequestAsync(_dialogService.FilePath, isFileChanged);
-                            }
-                            else
-                            {
-                                _dialogService.ShowMessage(Resources.SaveFile_Failed);
-                            }
-                        }
+                        await ShowSaveFileDialogAsync(doc);
                     }
                 }
                 if (_dialogService.OpenFileDialog() == true)
@@ -163,6 +169,8 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     {
                         throw new LoadFileException(String.Format(Resources.LoadFileException_Msg, _dialogService.FilePath));
                     }
+                    FilePath = _dialogService.FilePath;
+                    SwitchIsSavedExecute(true);
                 }
             }
             catch (Exception ex)
@@ -183,16 +191,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         {
             try
             {
-                if (_dialogService.SaveFileDialog() == true)
-                {
-                    bool isFileChanged = IsChanged(MainTextBoxText, _dialogService.FilePath);
-                    bool isSuccess = await SaveFileAsync(_dialogService.FilePath, doc);
-                    if (!isSuccess)
-                    {
-                        throw new SaveFileException(String.Format(Resources.SaveFileException_Msg, _dialogService.FilePath));
-                    }
-                    AddUserRequestAsync(_dialogService.FilePath, isFileChanged);
-                }
+                await ShowSaveFileDialogAsync(doc);
             }
             catch (Exception ex)
             {
@@ -221,19 +220,12 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     }
                     if (answ == MessageBoxResult.Yes)
                     {
-                        if (_dialogService.SaveFileDialog() == true)
-                        {
-                            bool isFileChanged = IsChanged(MainTextBoxText, _dialogService.FilePath);
-                            bool isSuccess = await SaveFileAsync(_dialogService.FilePath, doc);
-                            if (!isSuccess)
-                            {
-                                throw new SaveFileException(String.Format(Resources.SaveFileException_Msg, _dialogService.FilePath));
-                            }
-                            AddUserRequestAsync(_dialogService.FilePath, isFileChanged);
-                        }
+                        await ShowSaveFileDialogAsync(doc);
                     }
                 }
                 MainTextBoxText = string.Empty;
+                FilePath = string.Empty;
+                SwitchIsSavedExecute(true);
             }
             catch (Exception ex)
             {
@@ -242,10 +234,27 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         }
 
         #region Async operations
+        private async Task ShowSaveFileDialogAsync(FlowDocument doc)
+        {
+                if (_dialogService.SaveFileDialog() == true)
+                {
+                    bool isFileChanged = IsChanged(MainTextBoxText, _dialogService.FilePath);
+                    bool isSuccess = await SaveFileAsync(_dialogService.FilePath, doc);
+                    if (!isSuccess)
+                    {
+                        throw new SaveFileException(String.Format(Resources.SaveFileException_Msg, _dialogService.FilePath));
+                    }
+                    FilePath = _dialogService.FilePath;
+                    _dialogService.ShowMessage(Resources.SaveFile_Success);
+                    AddUserRequestAsync(_dialogService.FilePath, isFileChanged);
+                  
+                }
+        }
+
         private async Task<bool> SaveFileAsync(string filepath, FlowDocument doc)
         {
             LoaderService.Instance.ShowLoader();
-            bool isSuccess = await Task.Run(() =>
+            bool isSuccess = await Task.Run(async () =>
             {
                 try
                 {
@@ -257,9 +266,17 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     }
                     else
                     {
-                        doc.Dispatcher.Invoke(() =>
+                       return await doc.Dispatcher.InvokeAsync( () =>
                             {
-                                _fileService.Save(filepath, doc.ContentStart, doc.ContentEnd);
+                                try
+                                {
+                                    _fileService.Save(filepath, doc.ContentStart, doc.ContentEnd);
+                                    return true;
+                                }
+                                catch(Exception)
+                                {
+                                    return false;
+                                }
                             });
 
                     }
@@ -273,7 +290,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             });
             if (isSuccess)
             {
-                IsSaved = true;
+                SwitchIsSavedExecute(true);
             }
             LoaderService.Instance.HideLoader();
             return isSuccess;
@@ -282,7 +299,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         private async Task<bool> LoadFileAsync(string filepath, FlowDocument doc)
         {
             LoaderService.Instance.ShowLoader();
-            bool isSuccess = await Task.Run(() =>
+            bool isSuccess = await Task.Run(async () =>
             {
                 try
                 {
@@ -294,9 +311,18 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     }
                     else
                     {
-                        doc.Dispatcher.Invoke(() =>
+                        return await doc.Dispatcher.InvokeAsync(() =>
                         {
-                            _fileService.Load(filepath, doc.ContentStart, doc.ContentEnd);
+                            try
+                            {
+                                _fileService.Load(filepath, doc.ContentStart, doc.ContentEnd);
+                                return true;
+                            }
+                            catch (Exception)
+                            {
+                                return false;
+                            }
+                           
                         });
                     }
                     return true;

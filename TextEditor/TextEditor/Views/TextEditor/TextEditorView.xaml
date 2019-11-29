@@ -187,6 +187,7 @@
 
         <StatusBar Name="statusbar" DockPanel.Dock="Bottom" Height="40">
             <Label>Last Modified:</Label>
+            <Label Content="{Binding Path=LastModifiedDateStr, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"></Label>
         </StatusBar>
 
         <xctk:RichTextBox x:Name="MainTextBox" 
