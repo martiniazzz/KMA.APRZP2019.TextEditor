@@ -48,6 +48,13 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient
         }
         #endregion
 
+        #region Requests to server
+
+        /// <summary>
+        /// Send get request to server to get list of user requets about file changing
+        /// </summary>
+        /// <param name="userGuid">User's id</param>
+        /// <returns>List of user's requests </returns>
         public IEnumerable<UserRequest> GetUserRequests(Guid userGuid)
         {
             var response = _client.GetAsync(_serviceBaseUri.AddSegment(nameof(GetUserRequests)).AddUriParam(nameof(userGuid), userGuid.ToString())).Result;
@@ -61,6 +68,11 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient
             }
         }
 
+        /// <summary>
+        /// Send post request to server to save new user's request about file changing
+        /// </summary>
+        /// <param name="userGuid">User's id</param>
+        /// <param name="request">New request created by user</param>
         public void AddUserRequest(Guid userGuid, UserRequest request)
         {
             var response = _client.PostAsJsonAsync(_serviceBaseUri.AddSegment(nameof(AddUserRequest)).AddUriParam(nameof(userGuid), userGuid.ToString()),request).Result;
@@ -68,6 +80,7 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient
             if (!response.IsSuccessStatusCode)
                 throw new InvalidOperationException("Create user request failed with " + response.StatusCode.ToString());
         }
-  
+        #endregion
+
     }
 }

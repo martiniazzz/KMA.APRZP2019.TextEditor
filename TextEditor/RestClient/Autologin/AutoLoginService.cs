@@ -4,6 +4,9 @@ using System;
 
 namespace KMA.APRZP2019.TextEditorProject.RestClient.Autologin
 {
+    /// <summary>
+    /// Automatically logins user from file
+    /// </summary>
     public static class AutoLoginService
     {
         public static User CurrentUser { get; set; }
@@ -12,6 +15,11 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient.Autologin
         {
             DeserializeLastUser();
         }
+
+        /// <summary>
+        ///  Deserialize information about the last logged in user; get information about user with such an id from server;
+        ///  store user info in <c>CurrentUser</c> property 
+        /// </summary>
         private static void DeserializeLastUser()
         {
             User userCandidate;
@@ -39,6 +47,9 @@ namespace KMA.APRZP2019.TextEditorProject.RestClient.Autologin
                 CurrentUser = userCandidate;
         }
 
+        /// <summary>
+        /// Serialize information about the current user (stored in <c>CurrentUser</c> property)
+        /// </summary>
         private static void SerializeLastUser()
         {
             try
