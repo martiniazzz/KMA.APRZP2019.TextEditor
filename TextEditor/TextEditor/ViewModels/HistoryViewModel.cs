@@ -21,6 +21,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
 {
     class HistoryViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// List of user request about changing files
+        /// </summary>
         private ObservableCollection<UserRequest> _userRequests;
 
         private ICommand _toFileMenuCommand;
@@ -28,11 +31,16 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
 
         public HistoryViewModel()
         {
-            NavigationManager.Instance.NavigateModeChanged += OnNavigateModeChanged;
+            NavigationService.Instance.NavigateModeChanged += OnNavigateModeChanged;
         }
 
+        /// <summary>
+        /// Executed when Navigation is performed
+        /// </summary>
+        /// <param name="mode"></param>
         private async void OnNavigateModeChanged(ModesEnum mode)
         {
+            //Load user requests when History view is opened 
             if (mode == ModesEnum.History)
             {
                 LoaderService.Instance.ShowLoader();
@@ -78,6 +86,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command executing <see cref="ToFileMenuExecute(object)"></see>
+        /// </summary>
         public ICommand ToFileMenuCommand
         {
             get
@@ -86,11 +97,18 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Navigate to file editor view
+        /// </summary>
+        /// <param name="obj"></param>
         private void ToFileMenuExecute(object obj)
         {
-            NavigationManager.Instance.Navigate(ModesEnum.TextEditor);
+            NavigationService.Instance.Navigate(ModesEnum.TextEditor);
         }
 
+        /// <summary>
+        /// Command executing <see cref="LogoutExecute(object)"></see>
+        /// </summary>
         public ICommand LogoutCommand
         {
             get
@@ -99,10 +117,14 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Logouts user and navigates to login view
+        /// </summary>
+        /// <param name="obj"></param>
         private void LogoutExecute(object obj)
         {
             AutoLoginService.CurrentUser = null;
-            NavigationManager.Instance.Navigate(ModesEnum.LogIn);
+            NavigationService.Instance.Navigate(ModesEnum.LogIn);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

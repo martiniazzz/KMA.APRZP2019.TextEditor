@@ -37,6 +37,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command executing <see cref="ExitExecute(object)"/>
+        /// </summary>
         public ICommand ExitCommand
         {
             get
@@ -45,6 +48,10 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Exit from application
+        /// </summary>
+        /// <param name="obj"></param>
         private void ExitExecute(object obj)
         {
             AutoLoginService.CloseApp();
@@ -52,12 +59,14 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
 
         internal MainWindowViewModel()
         {
+            //initialize service that controls loader
             LoaderService.Instance.Initialize(this);
         }
 
         internal void StartApplication()
         {
-            NavigationManager.Instance.Navigate(AutoLoginService.CurrentUser != null ? ModesEnum.TextEditor : ModesEnum.LogIn);
+            //If user is logged in, navigate to file editor view whe app starts, otherwise navigate to login view
+            NavigationService.Instance.Navigate(AutoLoginService.CurrentUser != null ? ModesEnum.TextEditor : ModesEnum.LogIn);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

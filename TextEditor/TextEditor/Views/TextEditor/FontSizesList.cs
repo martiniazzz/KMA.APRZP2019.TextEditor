@@ -4,6 +4,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor
 {
     class FontSizesList : ObservableCollection<string>
     {
+        /// <summary>
+        /// List of available font sizes
+        /// </summary>
         public FontSizesList()
         {
             this.Add("8");

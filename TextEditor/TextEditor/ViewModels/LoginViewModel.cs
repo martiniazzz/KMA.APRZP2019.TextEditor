@@ -42,6 +42,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command executing <see cref="LoginExecuteAsync(object)"/>
+        /// </summary>
         public ICommand LoginCommand
         {
             get
@@ -50,6 +53,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command executing <see cref="RegisterExecute(object)"/>
+        /// </summary>
         public ICommand RegisterCommand
         {
             get
@@ -58,7 +64,11 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
-        
+
+        /// <summary>
+        /// Logins user and navigates to file editor view
+        /// </summary>
+        /// <param name="obj"></param>
         private async void LoginExecuteAsync(object obj)
         {
             LoaderService.Instance.ShowLoader();
@@ -104,17 +114,26 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             });
             LoaderService.Instance.HideLoader();
             if (result)
-                NavigationManager.Instance.Navigate(ModesEnum.TextEditor);
+                NavigationService.Instance.Navigate(ModesEnum.TextEditor);
         }
 
+        /// <summary>
+        /// Specifies condition when <see cref="LoginCommand"/> is available
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns><c>true</c> if login and password are not empty, <c>false</c> othervice</returns>
         private bool LoginCanExecute(object obj)
         {
             return !String.IsNullOrWhiteSpace(_login) && !String.IsNullOrWhiteSpace(_password);
         }
 
+        /// <summary>
+        /// Navigates to register view
+        /// </summary>
+        /// <param name="obj"></param>
         private void RegisterExecute(object obj)
         {
-            NavigationManager.Instance.Navigate(ModesEnum.Register);
+            NavigationService.Instance.Navigate(ModesEnum.Register);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

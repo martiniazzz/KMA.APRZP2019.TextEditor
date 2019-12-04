@@ -111,7 +111,7 @@
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IFileService.cs" />
     <Compile Include="Services\LoaderService.cs" />
-    <Compile Include="Services\NavigationManager.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\RtfFileService.cs" />
     <Compile Include="Services\TextEditorDialogService.cs" />
     <Compile Include="Tools\Controls\PassswordControl.xaml.cs">

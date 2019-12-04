@@ -11,6 +11,12 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
 {
     class RtfFileService : IFileService
     {
+        /// <summary>
+        /// Load formatted text file (rtf) content between two pointers of FlowDocument 
+        /// </summary>
+        /// <param name="filename">Filepath to file that will be loaded</param>
+        /// <param name="start">Start pointer of FlowDoument</param>
+        /// <param name="end">End pointer of FlowDocument</param>
         public void Load(string filename, TextPointer start, TextPointer end)
         {
             try
@@ -28,6 +34,12 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
             }
         }
 
+        /// <summary>
+        /// Saves formatted content between two pointerts of FlowDocument to rtf file
+        /// </summary>
+        /// <param name="filename">Filepath of new or existing file where formatted text will be saved</param>
+        /// <param name="start">Start pointer of FlowDoument</param>
+        /// <param name="end">End pointer of FlowDocument</param>
         public void Save(string filename, TextPointer start, TextPointer end)
         {
             try

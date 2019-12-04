@@ -76,6 +76,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command executing <see cref="LoginExecute(object)"/>
+        /// </summary>
         public ICommand LoginCommand
         {
             get
@@ -84,6 +87,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command executing <see cref="RegisterExecute(object)"/>
+        /// </summary>
         public ICommand RegisterCommand
         {
             get
@@ -92,13 +98,20 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Navigate to login view
+        /// </summary>
+        /// <param name="obj"></param>
         private void LoginExecute(object obj)
         {
-            NavigationManager.Instance.Navigate(ModesEnum.LogIn);
+            NavigationService.Instance.Navigate(ModesEnum.LogIn);
         }
 
 
-       
+       /// <summary>
+       /// Register new user and redirect to text editor view
+       /// </summary>
+       /// <param name="obj"></param>
         private async void RegisterExecute(object obj)
         {
             LoaderService.Instance.ShowLoader();
@@ -150,10 +163,15 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             LoaderService.Instance.HideLoader();
             if (result)
             {
-                NavigationManager.Instance.Navigate(ModesEnum.TextEditor);
+                NavigationService.Instance.Navigate(ModesEnum.TextEditor);
             }
         }
 
+        /// <summary>
+        /// Specifies condition when <see cref="RegisterCommand"/> is available
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns><c>true</c> if all vields are not empty, <c>false</c> otherwise</returns>
         private bool RegisterCanExecute(object obj)
         {
             return !String.IsNullOrWhiteSpace(Login) &&

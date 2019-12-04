@@ -61,6 +61,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// defines whether last changes where saved
+        /// </summary>
         public bool IsSaved
         {
             get
@@ -74,6 +77,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Path to currently opened file
+        /// </summary>
         public string FilePath
         {
             get
@@ -84,10 +90,14 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             {
                 _filePath = value;
                 OnPropertyChanged();
+                //update last modified date and time of currently opened file
                 OnPropertyChanged("LastModifiedDateStr");
             }
         }
 
+        /// <summary>
+        /// Last modified date and time of currently opened file
+        /// </summary>
         public string LastModifiedDateStr
         {
             get
@@ -106,6 +116,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         #endregion
 
         #region Commands properties
+        /// <summary>
+        /// Command executing <see cref="ClearAllExecute(object)"/>
+        /// </summary>
         public ICommand ClearAllCommand
         {
             get
@@ -114,11 +127,18 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Clear all text
+        /// </summary>
+        /// <param name="obj"></param>
         private void ClearAllExecute(object obj)
         {
             MainTextBoxText = String.Empty;
         }
 
+        /// <summary>
+        /// Command executing <see cref="OpenHistoryExecute(object)"/>
+        /// </summary>
         public ICommand OpenHistoryCommand
         {
             get
@@ -127,11 +147,18 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Navigate to user requests history fiew
+        /// </summary>
+        /// <param name="obj"></param>
         private void OpenHistoryExecute(object obj)
         {
-            NavigationManager.Instance.Navigate(ModesEnum.History);
+            NavigationService.Instance.Navigate(ModesEnum.History);
         }
 
+        /// <summary>
+        /// Command executing <see cref="OpenFileExecuteAsync(FlowDocument)"/>
+        /// </summary>
         public ICommand OpenFileCommand
         {
             get
@@ -140,6 +167,10 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Opens file dialog and display formatted content of the selected file on specified <see cref="FlowDocument"/>
+        /// </summary>
+        /// <param name="doc"><see cref="FlowDocument"/> to show file content on</param>
         private async void OpenFileExecuteAsync(FlowDocument doc)
         {
             try
@@ -173,6 +204,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command executing <see cref="SaveFileExecuteAsync(FlowDocument)"/>
+        /// </summary>
         public ICommand SaveFileCommand
         {
             get
@@ -181,6 +215,10 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Shows Save File Dialog and saves formatted content of specified <see cref="FlowDocument"/> to selected file
+        /// </summary>
+        /// <param name="doc"> <see cref="FlowDocument"/> which content will be saved</param>
         private async void SaveFileExecuteAsync(FlowDocument doc)
         {
             try
@@ -193,6 +231,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command executing <see cref="NewFileExecuteAsync(FlowDocument)"/>
+        /// </summary>
         public ICommand NewFileCommand
         {
             get
@@ -201,6 +242,10 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Offers user to save last changes if not already saved, then clears all settings 
+        /// </summary>
+        /// <param name="doc"><see cref="FlowDocument"/> to work with </param>
         private async void NewFileExecuteAsync(FlowDocument doc)
         {
             try
@@ -228,6 +273,11 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         }
 
         #region Async operations
+        /// <summary>
+        /// Shows Save File Dialog, saves content of specified <see cref="FlowDocument"/> to selected file, saves  appropriate user request to requests history
+        /// </summary>
+        /// <param name="doc"><see cref="FlowDocument"/> which content will be saved</param>
+        /// <returns>task representing <c>async</c> operation</returns>
         private async Task ShowSaveFileDialogAsync(FlowDocument doc)
         {
                 if (_dialogService.SaveFileDialog() == true)
@@ -245,6 +295,13 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                 }
         }
 
+        /// <summary>
+        /// Saves formatted content of <paramref name="doc"/> to <paramref name="filepath"/>
+        /// </summary>
+        /// <param name="filepath">Filepath to which content of <paramref name="doc"/> will be saved</param>
+        /// <param name="doc"><see cref="FlowDocument"/> which content will be saved</param>
+        /// <returns>task representing <c>async</c> operation with <c>bool</c> parameter, 
+        /// that is <c>true</c> if task completes successfully, <c>false</c> otherwise</returns>
         private async Task<bool> SaveFileAsync(string filepath, FlowDocument doc)
         {
             LoaderService.Instance.ShowLoader();
@@ -290,6 +347,13 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             return isSuccess;
         }
 
+        /// <summary>
+        /// Opens file <paramref name="filepath"/> and shows its content on <paramref name="doc"/>
+        /// </summary>
+        /// <param name="filepath"></param>
+        /// <param name="doc"></param>
+        /// <returns>task representing <c>async</c> operation with <c>bool</c> parameter, 
+        /// that is <c>true</c> if task completes successfully, <c>false</c> otherwise</returns>
         private async Task<bool> LoadFileAsync(string filepath, FlowDocument doc)
         {
             LoaderService.Instance.ShowLoader();
@@ -330,6 +394,11 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             return isSuccess;
         }
 
+        /// <summary>
+        /// Creates new user request about changing files and saves it
+        /// </summary>
+        /// <param name="filepath">File user worked with</param>
+        /// <param name="isChanged"><c>true</c> if file <paramref name="filepath"/> was changed, otherwise <c>false</c></param>
         private async void AddUserRequestAsync(string filepath, bool isChanged)
         {
 
@@ -355,6 +424,9 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Command executing <see cref="SwitchIsSavedExecute(bool)"/>
+        /// </summary>
         public ICommand SwitchIsSavedCommand
         {
             get
@@ -363,11 +435,18 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Sets the value of property <see cref="IsSaved"/> to <paramref name="isSaved"/>
+        /// </summary>
+        /// <param name="isSaved">New value for <see cref="IsSaved"/> property</param>
         private void SwitchIsSavedExecute(bool isSaved)
         {
             IsSaved = isSaved;
         }
 
+        /// <summary>
+        /// Command executing <see cref="LogoutExecute(object)"/>
+        /// </summary>
         public ICommand LogoutCommand
         {
             get
@@ -376,14 +455,24 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Logouts user and navigates to login page
+        /// </summary>
+        /// <param name="obj"></param>
         private void LogoutExecute(object obj)
         {
             AutoLoginService.CurrentUser = null;
-            NavigationManager.Instance.Navigate(ModesEnum.LogIn);
+            NavigationService.Instance.Navigate(ModesEnum.LogIn);
         }
         #endregion
 
         #region Text comparison
+        /// <summary>
+        /// Checks if <paramref name="text"/> was changed in comparison to content of file <paramref name="filepath"/>
+        /// </summary>
+        /// <param name="text">Text to compare with content of <paramref name="filepath"/></param>
+        /// <param name="filepath">File which content wil be compared to <paramref name="text"/></param>
+        /// <returns><c>true</c> if <paramref name="text"/> was changed in comparison to content of <paramref name="filepath"/>, <c>false</c> otherwsise</returns>
         bool IsChanged(String text, String filepath)
         {
             return !(FileComparison.EqualsTextToFileText(text, filepath));

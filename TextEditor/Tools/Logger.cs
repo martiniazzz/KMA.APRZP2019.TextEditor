@@ -6,6 +6,10 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
 {
     public class Logger
     {
+        /// <summary>
+        /// print specified <paramref name="message"/> to logger file
+        /// </summary>
+        /// <param name="message">Message to log</param>
         public static void Log(string message)
         {
             lock (FileFolderHelper.LogFilepath)
@@ -32,6 +36,12 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
                 }
             }
         }
+
+        /// <summary>
+        /// print specified <paramref name="message"/> and exception <paramref name="ex"/> to logger file
+        /// </summary>
+        /// <param name="message">Message to log</param>
+        /// <param name="ex">Exception to log</param>
         public static void Log(string message, Exception ex)
         {
             var stringBuilder = new StringBuilder();
@@ -45,6 +55,10 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
             Log(stringBuilder.ToString());
         }
 
+        /// <summary>
+        /// print specified exception <paramref name="ex"/> to logger file
+        /// </summary>
+        /// <param name="ex">Exception to log</param>
         public static void Log(Exception ex)
         {
             var stringBuilder = new StringBuilder();

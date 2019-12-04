@@ -3,7 +3,7 @@ using KMA.APRZP2019.TextEditorProject.TextEditor.Tools;
 
 namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
 {
-    class NavigationManager
+    class NavigationService
     {
         #region static
         /// <summary>
@@ -11,14 +11,14 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
         /// </summary>
         private static readonly object Lock = new object();
         /// <summary>
-        /// Singelton Object of a manager
+        /// Singleton Object of a service
         /// </summary>
-        private static NavigationManager _instance;
+        private static NavigationService _instance;
 
         /// <summary>
-        /// Singelton Object of a manager
+        /// Singelton Object of a service
         /// </summary>
-        public static NavigationManager Instance
+        public static NavigationService Instance
         {
             get
             {
@@ -30,7 +30,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
                 lock (Lock)
                 {
                     //Initialize Singleton instance and return its object
-                    return _instance = new NavigationManager();
+                    return _instance = new NavigationService();
                 }
             }
         }
@@ -59,10 +59,14 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
         }
 
         #region Events and Handlers
+        /// <summary>
+        /// Event that occurs when Navigate method (<see cref="Navigate(ModesEnum)"/>) is called 
+        /// </summary>
         internal event NavigateModeChangedHandler NavigateModeChanged;
         internal delegate void NavigateModeChangedHandler(ModesEnum mode);
         internal virtual void OnNavigateModeChanged(ModesEnum mode)
         {
+            //if not null, event is invoked
             NavigateModeChanged?.Invoke(mode);
         }
         #endregion

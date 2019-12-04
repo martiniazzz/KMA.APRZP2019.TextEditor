@@ -5,6 +5,12 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
 {
     public static class FileComparison
     {
+        /// <summary>
+        /// Compares specified <paramref name="text"/> to content of file <paramref name="filename"/>
+        /// </summary>
+        /// <param name="text">Text to compare with content of <paramref name="filepath"/> </param>
+        /// <param name="filename">File which content wil be compared to <paramref name="text"/></param>
+        /// <returns><c>true</c> if <paramref name="text"/> equals to content of <paramref name="filename"/>, <c>false</c> otherwise</returns>
         public static bool EqualsTextToFileText(string text, string filename)
         {
             if (!File.Exists(filename))

@@ -16,7 +16,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor
             InitializeComponent();
 
             var navigationModel = new NavigationModel(this);
-            NavigationManager.Instance.Initialize(navigationModel);
+            NavigationService.Instance.Initialize(navigationModel);
             var mainWindowViewModel = new MainWindowViewModel();
             DataContext = mainWindowViewModel;
             mainWindowViewModel.StartApplication();

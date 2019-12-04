@@ -5,6 +5,7 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
 {
     public class FileFolderHelper
     {
+        #region Static constants
         private static readonly string AppDataPath =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
@@ -22,7 +23,12 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
 
         public static readonly string LastUserFilePath =
             Path.Combine(ClientFolderPath, "LastUser.textedit");
+        #endregion
 
+        /// <summary>
+        /// Create file with path <paramref name="filePath"/> if it doesn't already exist
+        /// </summary>
+        /// <param name="filePath">File to create</param>
         public static void CheckAndCreateFile(string filePath)
         {
             try
@@ -44,6 +50,10 @@ namespace KMA.APRZP2019.TextEditorProject.Tools
             }
         }
 
+        /// <summary>
+        /// Delete file with specified <paramref name="filePath"/> if exists
+        /// </summary>
+        /// <param name="filePath">File to delete</param>
         public static void CheckAndDeleteFile(string filePath)
         {
             try
