@@ -22,7 +22,7 @@
         </DockPanel.Resources>
 
         <ToolBarPanel DockPanel.Dock="Top">
-            <Label x:Name="UserHello" Content="{Binding Source={x:Static autologin:AutoLoginService.CurrentUser}, Path=FirstName}" ContentStringFormat="Hello, {0}"  HorizontalContentAlignment="Right"/>
+            <Label x:Name="UserHello" Content="{Binding Source={x:Static autologin:AutoLoginService.Instance}, Path=CurrentUser.FirstName, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Hello, {0}"  HorizontalContentAlignment="Right"/>
             
         </ToolBarPanel>
 

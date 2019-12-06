@@ -408,7 +408,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                 {
                     try
                     {
-                        requestService.AddUserRequest(AutoLoginService.CurrentUser.Guid, new UserRequest(filepath, isChanged, DateTime.UtcNow));
+                        requestService.AddUserRequest(AutoLoginService.Instance.CurrentUser.Guid, new UserRequest(filepath, isChanged, DateTime.UtcNow));
                         return true;
                     }
                     catch (Exception)
@@ -461,7 +461,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         /// <param name="obj"></param>
         private void LogoutExecute(object obj)
         {
-            AutoLoginService.CurrentUser = null;
+            AutoLoginService.Instance.CurrentUser = null;
             NavigationService.Instance.Navigate(ModesEnum.LogIn);
         }
         #endregion

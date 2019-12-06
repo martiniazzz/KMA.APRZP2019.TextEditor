@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800" Height="450" MinHeight="450" Width="800" MinWidth="800">
     <DockPanel LastChildFill="True">
         <ToolBarPanel DockPanel.Dock="Top">
-            <Label x:Name="UserHello" Content="{Binding Source={x:Static autologin:AutoLoginService.CurrentUser}, Path=FirstName}" ContentStringFormat="Hello, {0}"  HorizontalContentAlignment="Right"/>
+            <Label x:Name="UserHello" Content="{Binding Source={x:Static autologin:AutoLoginService.Instance}, Path=CurrentUser.FirstName,UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Hello, {0}"  HorizontalContentAlignment="Right"/>
         </ToolBarPanel>
 
         <Menu DockPanel.Dock="Top">

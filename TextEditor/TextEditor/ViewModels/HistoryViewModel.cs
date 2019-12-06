@@ -37,7 +37,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         /// <summary>
         /// Executed when Navigation is performed
         /// </summary>
-        /// <param name="mode"></param>
+        /// <param name="mode">Value representing page to navigate to</param>
         private async void OnNavigateModeChanged(ModesEnum mode)
         {
             //Load user requests when History view is opened 
@@ -52,7 +52,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                         Thread.Sleep(3000);
                         using (UserRequestApiService userRequestApi = new UserRequestApiService())
                         {
-                            IEnumerable<UserRequest> userRequests = userRequestApi.GetUserRequests(AutoLoginService.CurrentUser.Guid)
+                            IEnumerable<UserRequest> userRequests = userRequestApi.GetUserRequests(AutoLoginService.Instance.CurrentUser.Guid)
                             .Select(r => { r.ChangedAt = r.ChangedAt.ToLocalTime(); return r; });
                             UserRequests = new ObservableCollection<UserRequest>(userRequests);
                             return true;
@@ -70,6 +70,11 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                     Logger.Log(Resources.UserRequest_LoadAllFailed);
                     MessageBox.Show(Resources.UserRequest_LoadAllFailed);
                 }
+            }
+            else
+            {
+                //Clear user requests list when user opens other pages
+                UserRequests.Clear();
             }
         }
 
@@ -123,7 +128,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         /// <param name="obj"></param>
         private void LogoutExecute(object obj)
         {
-            AutoLoginService.CurrentUser = null;
+            AutoLoginService.Instance.CurrentUser = null;
             NavigationService.Instance.Navigate(ModesEnum.LogIn);
         }
 

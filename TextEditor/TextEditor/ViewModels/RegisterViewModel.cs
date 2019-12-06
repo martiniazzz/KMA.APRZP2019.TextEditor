@@ -27,6 +27,32 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         private ICommand _loginCommand;
         private ICommand _registerCommand;
 
+        public RegisterViewModel()
+        {
+            NavigationService.Instance.NavigateModeChanged += OnNavigateModeChanged;
+        }
+
+        /// <summary>
+        /// Executed when Navigation is performed
+        /// </summary>
+        /// <param name="mode">Value representing page to navigate to</param>
+        private void OnNavigateModeChanged(ModesEnum mode)
+        {
+            ClearForm();
+        }
+
+        /// <summary>
+        /// Clears all inputs
+        /// </summary>
+        private void ClearForm()
+        {
+            Password = string.Empty;
+            Login = string.Empty;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            Email = string.Empty;
+        }
+
         public string Password
         {
             get { return _password; }
@@ -108,48 +134,29 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         }
 
 
-       /// <summary>
-       /// Register new user and redirect to text editor view
-       /// </summary>
-       /// <param name="obj"></param>
+        /// <summary>
+        /// Register new user and redirect to text editor view
+        /// </summary>
+        /// <param name="obj"></param>
         private async void RegisterExecute(object obj)
         {
             LoaderService.Instance.ShowLoader();
             var result = await Task.Run(() =>
             {
-                try
+                if (!IsFormValid())
                 {
-                    if (!new EmailAddressAttribute().IsValid(_email))
-                    {
-                        MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));
-                        return false;
-                    }
-                    //this code added to show loader working
-                    Thread.Sleep(3000);
-                    using (var restClient = new UserApiService())
-                    {
-                        if (restClient.UserExists(Login))
-                        {
-                            MessageBox.Show(String.Format(Resources.SignUp_UserAlreadyExists, _login));
-                            return false;
-                        }
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(String.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
-                       ex.Message));
                     return false;
                 }
                 try
                 {
-                    var user = new User(Login,FirstName,LastName,Email,Password);
+                    //this code added to show loader working
+                    Thread.Sleep(3000);
+                    var user = new User(Login, FirstName, LastName, Email, Password);
                     using (var restClient = new UserApiService())
                     {
                         restClient.AddUser(user);
                     }
-                    AutoLoginService.CurrentUser = user;
+                    AutoLoginService.Instance.CurrentUser = user;
                 }
                 catch (Exception ex)
                 {
@@ -165,6 +172,43 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             {
                 NavigationService.Instance.Navigate(ModesEnum.TextEditor);
             }
+        }
+
+        /// <summary>
+        /// Checks whether fields are valid and if not displays appropriate message
+        /// </summary>
+        /// <returns><c>true</c> if fields are valid, <c>false</c> otherwise</returns>
+        private bool IsFormValid()
+        {
+            try
+            {
+                if (!new EmailAddressAttribute().IsValid(_email))
+                {
+                    MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));
+                    return false;
+                }
+                using (var restClient = new UserApiService())
+                {
+                    if (restClient.UserExists(Login))
+                    {
+                        MessageBox.Show(String.Format(Resources.SignUp_UserLoginAlreadyExists, _login));
+                        return false;
+                    }
+                    if (restClient.UserExists(Email))
+                    {
+                        MessageBox.Show(String.Format(Resources.SignUp_UserEmailAlreadyExists, _email));
+                        return false;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
+                   ex.Message));
+                return false;
+            }
+            return true;
         }
 
         /// <summary>

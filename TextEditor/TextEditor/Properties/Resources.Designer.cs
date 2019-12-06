@@ -162,9 +162,18 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User with login {0} already exists!.
         /// </summary>
-        internal static string SignUp_UserAlreadyExists {
+        internal static string SignUp_UserEmailAlreadyExists {
             get {
-                return ResourceManager.GetString("SignUp_UserAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("SignUp_UserEmailAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with login {0} already exists!.
+        /// </summary>
+        internal static string SignUp_UserLoginAlreadyExists {
+            get {
+                return ResourceManager.GetString("SignUp_UserLoginAlreadyExists", resourceCulture);
             }
         }
         

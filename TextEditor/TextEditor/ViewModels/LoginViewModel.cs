@@ -23,6 +23,21 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         private ICommand _loginCommand;
         private ICommand _registerCommand;
 
+        public LoginViewModel()
+        {
+            NavigationService.Instance.NavigateModeChanged += OnNavigateModeChanged;
+        }
+
+        /// <summary>
+        /// Executed when Navigation is performed
+        /// </summary>
+        /// <param name="mode">Value representing page to navigate to</param>
+        private void OnNavigateModeChanged(ModesEnum mode)
+        {
+            Password = string.Empty;
+            Login = string.Empty;
+        }
+
         public string Password
         {
             get { return _password; }
@@ -109,7 +124,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
                         ex.Message));
                     return false;
                 }
-                AutoLoginService.CurrentUser = currentUser;
+                AutoLoginService.Instance.CurrentUser = currentUser;
                 return true;
             });
             LoaderService.Instance.HideLoader();
