@@ -51,7 +51,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
         /// This method performs switch betwean different controls
         /// </summary>
         /// <param name="mode">Enum value of corresponding control</param>
-        internal void Navigate(ModesEnum mode)
+        internal void Navigate(Mode mode)
         {
             //If _navigationModel is null, nothing will happen
             _navigationModel?.Navigate(mode);
@@ -60,11 +60,11 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Services
 
         #region Events and Handlers
         /// <summary>
-        /// Event that occurs when Navigate method (<see cref="Navigate(ModesEnum)"/>) is called 
+        /// Event that occurs when Navigate method (<see cref="Navigate(Mode)"/>) is called 
         /// </summary>
         internal event NavigateModeChangedHandler NavigateModeChanged;
-        internal delegate void NavigateModeChangedHandler(ModesEnum mode);
-        internal virtual void OnNavigateModeChanged(ModesEnum mode)
+        internal delegate void NavigateModeChangedHandler(Mode mode);
+        internal virtual void OnNavigateModeChanged(Mode mode)
         {
             //if not null, event is invoked
             NavigateModeChanged?.Invoke(mode);

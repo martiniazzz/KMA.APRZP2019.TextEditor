@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents application pages user navigates through
     /// </summary>
-    enum ModesEnum
+    enum Mode
     {
         LogIn,
         Register,

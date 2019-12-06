@@ -66,7 +66,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         internal void StartApplication()
         {
             //If user is logged in, navigate to file editor view whe app starts, otherwise navigate to login view
-            NavigationService.Instance.Navigate(AutoLoginService.Instance.CurrentUser != null ? ModesEnum.TextEditor : ModesEnum.LogIn);
+            NavigationService.Instance.Navigate(AutoLoginService.Instance.CurrentUser != null ? Mode.TextEditor : Mode.LogIn);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

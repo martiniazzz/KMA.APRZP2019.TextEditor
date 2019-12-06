@@ -35,20 +35,20 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.Tools
         /// Navigate to the appropriate page
         /// </summary>
         /// <param name="mode">Enum parameter representing page to navigate to</param>
-        internal void Navigate(ModesEnum mode)
+        internal void Navigate(Mode mode)
         {
             switch (mode)
             {
-                case ModesEnum.LogIn:
+                case Mode.LogIn:
                     _contentWindow.ContentControl.Content = _loginView ?? (_loginView = new LoginFormView());
                     break;
-                case ModesEnum.Register:
+                case Mode.Register:
                     _contentWindow.ContentControl.Content = _registerView ?? (_registerView = new RegisterFormView());
                     break;
-                case ModesEnum.TextEditor:
+                case Mode.TextEditor:
                     _contentWindow.ContentControl.Content = _textEditorView ?? (_textEditorView = new TextEditorView());
                     break;
-                case ModesEnum.History:
+                case Mode.History:
                     _contentWindow.ContentControl.Content = _historyView ?? (_historyView = new HistoryView());
                     break;
                default:

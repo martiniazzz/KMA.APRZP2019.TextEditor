@@ -153,7 +153,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         /// <param name="obj"></param>
         private void OpenHistoryExecute(object obj)
         {
-            NavigationService.Instance.Navigate(ModesEnum.History);
+            NavigationService.Instance.Navigate(Mode.History);
         }
 
         /// <summary>
@@ -462,7 +462,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         private void LogoutExecute(object obj)
         {
             AutoLoginService.Instance.CurrentUser = null;
-            NavigationService.Instance.Navigate(ModesEnum.LogIn);
+            NavigationService.Instance.Navigate(Mode.LogIn);
         }
         #endregion
 

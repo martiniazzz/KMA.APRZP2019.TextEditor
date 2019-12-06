@@ -36,7 +36,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         /// Executed when Navigation is performed
         /// </summary>
         /// <param name="mode">Value representing page to navigate to</param>
-        private void OnNavigateModeChanged(ModesEnum mode)
+        private void OnNavigateModeChanged(Mode mode)
         {
             ClearForm();
         }
@@ -130,7 +130,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         /// <param name="obj"></param>
         private void LoginExecute(object obj)
         {
-            NavigationService.Instance.Navigate(ModesEnum.LogIn);
+            NavigationService.Instance.Navigate(Mode.LogIn);
         }
 
 
@@ -170,7 +170,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
             LoaderService.Instance.HideLoader();
             if (result)
             {
-                NavigationService.Instance.Navigate(ModesEnum.TextEditor);
+                NavigationService.Instance.Navigate(Mode.TextEditor);
             }
         }
 

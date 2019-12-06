@@ -38,10 +38,10 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         /// Executed when Navigation is performed
         /// </summary>
         /// <param name="mode">Value representing page to navigate to</param>
-        private async void OnNavigateModeChanged(ModesEnum mode)
+        private async void OnNavigateModeChanged(Mode mode)
         {
             //Load user requests when History view is opened 
-            if (mode == ModesEnum.History)
+            if (mode == Mode.History)
             {
                 LoaderService.Instance.ShowLoader();
                 bool isSuccess = await Task.Run(() =>
@@ -108,7 +108,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         /// <param name="obj"></param>
         private void ToFileMenuExecute(object obj)
         {
-            NavigationService.Instance.Navigate(ModesEnum.TextEditor);
+            NavigationService.Instance.Navigate(Mode.TextEditor);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace KMA.APRZP2019.TextEditorProject.TextEditor.ViewModels
         private void LogoutExecute(object obj)
         {
             AutoLoginService.Instance.CurrentUser = null;
-            NavigationService.Instance.Navigate(ModesEnum.LogIn);
+            NavigationService.Instance.Navigate(Mode.LogIn);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
